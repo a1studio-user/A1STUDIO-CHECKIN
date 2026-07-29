@@ -1,0 +1,19 @@
+{
+  "name": "a1studio-checkin-industrial",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Industrial frontend/backend split migration for A1 STUDIO check-in app.",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "preview": "npm --prefix frontend run preview",
+    "typecheck": "npm --prefix frontend run typecheck",
+    "ios:sync": "npm --prefix frontend run ios:sync"
+  },
+  "workspaces": [
+    "frontend"
+  ],
+  "devDependencies": {
+    "@rollup/rollup-darwin-arm64": "^4.62.2"
+  }
+}
