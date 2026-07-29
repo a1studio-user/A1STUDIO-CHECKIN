@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="意大利语打卡">
+<meta name="theme-color" content="#009246">
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<link rel="manifest" href="/italiano-checkin/manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="/italiano-checkin/icon-192.png">
+<link rel="apple-touch-icon" href="/italiano-checkin/icon-192.png">
+<title>A1 STUDIO暑期打卡</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{width:100%;height:100%;min-height:100%;background:#f5f0e8}
+body{width:100%;min-height:100vh;min-height:100dvh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Helvetica Neue',sans-serif;background:linear-gradient(135deg,#f0f4f0,#e8f0e3 50%,#f5f0e8);color:#2c3e2d;padding-bottom:80px;padding-bottom:calc(80px + env(safe-area-inset-bottom))}
+body.auth-page{min-height:100vh;min-height:100dvh;padding-bottom:0;background:#f5f0e8;overflow:hidden}
+body.auth-page .page.active{min-height:100vh;min-height:100dvh;background:#f5f0e8}
+body.app-page{height:100vh;height:100dvh;overflow:hidden;padding-bottom:0}
+body.app-page .page.active{height:100vh;height:100dvh;overflow:hidden}
+body.app-page .container{height:100vh;height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))}
+.container{max-width:500px;margin:0 auto;padding:16px;padding-bottom:20px}
+.auth-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;min-height:100dvh;padding:20px}
+.auth-card{background:#fff;border-radius:20px;padding:32px 24px;width:100%;max-width:380px;box-shadow:0 8px 30px rgba(0,0,0,.1)}
+.auth-card .logo{text-align:center;font-size:48px;margin-bottom:8px}
+.auth-card h1{text-align:center;font-size:20px;margin-bottom:4px;color:#009246}
+.auth-card .sub{text-align:center;font-size:12px;color:#999;margin-bottom:24px}
+.auth-card label{display:block;font-size:13px;font-weight:600;margin-bottom:4px;color:#555}
+.auth-card input{width:100%;padding:12px 14px;border:2px solid #e8e8e8;border-radius:12px;font-size:15px;margin-bottom:16px;outline:none;transition:border .2s;-webkit-appearance:none}
+.auth-card input:focus{border-color:#009246}
+.btn{width:100%;padding:14px;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;-webkit-appearance:none}
+.btn-primary{background:linear-gradient(135deg,#009246,#00b359);color:#fff}
+.btn-primary:active{transform:scale(.97);opacity:.9}
+.btn-outline{background:#fff;color:#009246;border:2px solid #009246;margin-top:10px}
+.btn-outline:active{background:#f0faf3}
+.switch{text-align:center;margin-top:16px;font-size:13px;color:#888}
+.switch a{color:#009246;font-weight:600;cursor:pointer;text-decoration:none}
+.error{color:#ce2b37;font-size:12px;text-align:center;margin-bottom:8px;min-height:18px}
+.page{display:none}
+.page.active{display:block}
+.header{background:linear-gradient(135deg,#009246,#008C3A 40%,#ce2b37 40%,#ce2b37 60%,#fff 60%,#fff);border-radius:20px;padding:16px 20px;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(0,146,70,.2)}
+.header::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.12);backdrop-filter:blur(2px)}
+.header .hc{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:18px;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.2)}
+.user-tag{font-size:11px;color:rgba(255,255,255,.85)}
+.bottom-nav{position:fixed;bottom:calc(-1 * env(safe-area-inset-bottom,0px));left:0;right:0;min-height:calc(64px + env(safe-area-inset-bottom,0px));background:#fff;display:flex;align-items:flex-start;border-top:1px solid #eee;z-index:100;padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:0 -2px 10px rgba(0,0,0,.05);transform:translateZ(0);will-change:transform}
+body.keyboard-open .bottom-nav{display:flex}
+.bottom-nav .nav-item{flex:1;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 2px 6px;cursor:pointer;color:#999;font-size:9px;gap:3px;transition:all .15s;-webkit-tap-highlight-color:transparent;border:none;background:none}
+.bottom-nav .nav-item .nav-icon{font-size:18px;line-height:1}
+.bottom-nav .nav-item.active{color:#009246;font-weight:600}
+.bottom-nav .nav-item:active{opacity:.6}
+.stats-row{display:flex;gap:10px;margin-bottom:16px}
+.stat-card{flex:1;background:#fff;border-radius:16px;padding:14px 10px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.stat-card .icon{font-size:24px;margin-bottom:2px}
+.stat-card .number{font-size:26px;font-weight:700;color:#009246}
+.stat-card.streak .number{color:#ce2b37}
+.stat-card.flower .number{color:#009246}
+.stat-card .label{font-size:11px;color:#888;margin-top:2px}
+.section-title{font-size:15px;font-weight:700;margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+.task-card{background:#fff;border-radius:16px;padding:16px;margin-bottom:10px;box-shadow:0 2px 12px rgba(0,0,0,.06);display:flex;align-items:flex-start;gap:12px;transition:all .2s}
+.task-card .task-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.task-card .task-icon.hw{background:#e3f2fd}.task-card .task-icon.dt{background:#fff3e0}
+.task-card .task-icon.rc{background:#f3e5f5}.task-card .task-icon.sp{background:#e8f5e9}
+.task-info{flex:1;min-width:0}
+.task-info .task-name{font-weight:700;font-size:14px}
+.task-info .task-content{font-size:13px;color:#555;margin-top:6px;background:#f9f9f9;padding:10px 12px;border-radius:8px;line-height:1.6;white-space:pre-wrap;word-break:normal;overflow-wrap:break-word;hyphens:none;-webkit-hyphens:none}
+.checkin-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f0f0f0}
+.checkin-row:last-child{border-bottom:none}
+.checkin-row .ci-icon{font-size:22px;width:36px;text-align:center;flex-shrink:0}
+.checkin-row .ci-name{flex:1;font-size:14px;font-weight:600}
+.checkin-row .ci-status{font-size:12px;color:#888;margin-right:8px}
+.check-btn{width:40px;height:40px;border-radius:50%;border:3px solid #ddd;background:#fff;font-size:16px;cursor:pointer;flex-shrink:0;transition:all .15s;display:flex;align-items:center;justify-content:center;-webkit-appearance:none}
+.check-btn:active{border-color:#009246;transform:scale(.92)}
+.check-btn.done{background:#009246;border-color:#009246;color:#fff}
+.podium-wrap{background:#fff;border-radius:20px;padding:24px 16px 16px;box-shadow:0 4px 20px rgba(0,0,0,.08);margin-bottom:16px}
+.podium-wrap h3{text-align:center;font-size:16px;margin-bottom:20px}
+.podium{display:flex;align-items:flex-end;justify-content:center;gap:8px;min-height:180px}
+.podium-col{display:flex;flex-direction:column;align-items:center;width:90px}
+.podium-col .p-name{font-size:13px;font-weight:700;margin-bottom:4px;text-align:center;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.podium-col .p-flower{font-size:11px;color:#009246;margin-bottom:4px}
+.podium-col .p-bar{border-radius:10px 10px 0 0;width:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px;transition:height .5s ease}
+.podium-col.first .p-bar{background:linear-gradient(180deg,#ffd700,#ffb300);height:120px}
+.podium-col.second .p-bar{background:linear-gradient(180deg,#c0c0c0,#9e9e9e);height:90px}
+.podium-col.third .p-bar{background:linear-gradient(180deg,#cd7f32,#a0522d);height:65px}
+.podium-col.empty .p-bar{background:#e0e0e0;height:40px}
+.podium-col.first{order:2}.podium-col.second{order:1}.podium-col.third{order:3}
+.student-card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer;transition:all .2s;margin-bottom:10px}
+.student-card:active{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:scale(.98)}
+.student-card .s-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.student-card .s-name{font-weight:700;font-size:15px}
+.student-card .s-stats{display:flex;gap:16px;font-size:12px;color:#666}
+.student-card .s-stats span{font-weight:600}
+.student-card .s-today{display:flex;gap:6px;margin-top:8px}
+.s-dot{width:10px;height:10px;border-radius:50%}
+.s-dot.done{background:#009246}.s-dot.pending{background:#ddd}
+.tabs{display:flex;gap:4px;margin-bottom:16px;background:#fff;border-radius:14px;padding:4px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.tab-btn{flex:1;padding:10px 6px;border:none;background:none;border-radius:11px;font-size:13px;font-weight:600;cursor:pointer;color:#888;transition:all .2s;-webkit-appearance:none}
+.tab-btn.active{background:#009246;color:#fff}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.chat-area{display:flex;flex-direction:column;height:calc(100vh - 220px);height:calc(100dvh - 220px);min-height:300px}
+.chat-messages{flex:1;overflow-y:auto;padding:4px 0;margin-bottom:8px;-webkit-overflow-scrolling:touch}
+.chat-msg{margin-bottom:10px;padding:0 4px}
+.chat-msg .cm-header{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.chat-msg .cm-name{font-weight:700;font-size:12px}
+.chat-msg .cm-role{font-size:10px;padding:1px 6px;border-radius:8px;font-weight:600}
+.chat-msg .cm-role.teacher{background:#fce4ec;color:#c62828}
+.chat-msg .cm-role.student{background:#e3f2fd;color:#1565c0}
+.chat-msg .cm-time{font-size:10px;color:#bbb;margin-left:4px}
+.chat-msg .cm-body{background:#fff;display:inline-block;padding:8px 12px;border-radius:14px;font-size:14px;max-width:85%;word-break:break-word;line-height:1.5;box-shadow:0 1px 3px rgba(0,0,0,.05);user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.chat-msg .cm-body:active{filter:brightness(.96)}
+.chat-msg .cm-actions{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap}
+.chat-msg.mine .cm-actions{justify-content:flex-end}
+.cm-action{border:none;background:rgba(255,255,255,.75);color:#888;border-radius:10px;padding:3px 8px;font-size:10px;line-height:1.4;min-height:24px;-webkit-appearance:none}
+.cm-action.warn{color:#c62828}
+.chat-compliance{text-align:center;color:#aaa;font-size:10px;line-height:1.6;margin-top:6px;padding:0 10px}
+.chat-msg.mine .cm-body{background:#dcf8c6}
+.chat-msg.mine{text-align:right}
+.chat-msg.mine .cm-header{justify-content:flex-end}
+.chat-input-row{display:flex;gap:8px;align-items:center}
+.chat-input-row input{flex:1;padding:10px 14px;border:2px solid #e8e8e8;border-radius:24px;font-size:14px;outline:none;-webkit-appearance:none;min-height:44px}
+.chat-input-row input:focus{border-color:#009246}
+.chat-input-row button{width:44px;height:44px;border-radius:50%;border:none;background:#009246;color:#fff;font-size:18px;cursor:pointer;flex-shrink:0;-webkit-appearance:none;display:flex;align-items:center;justify-content:center}
+.chat-input-row button:active{opacity:.8}
+.chat-refresh{text-align:center;margin-bottom:6px;position:relative;z-index:2;pointer-events:auto}
+.chat-refresh button{font-size:11px;color:#888;background:none;border:1px solid #ddd;padding:6px 14px;border-radius:12px;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;pointer-events:auto}
+.task-editor{margin-bottom:16px}
+.task-editor label{display:block;font-size:12px;font-weight:600;color:#666;margin-bottom:4px}
+.task-editor textarea{width:100%;padding:10px 12px;border:2px solid #e8e8e8;border-radius:10px;font-size:14px;resize:vertical;min-height:60px;outline:none;margin-bottom:10px;font-family:inherit;line-height:1.5;-webkit-appearance:none}
+.task-editor textarea:focus{border-color:#009246}
+.task-editor .row{display:flex;gap:10px;align-items:center;margin-bottom:12px}
+.task-editor select{flex:1;padding:10px 12px;border:2px solid #e8e8e8;border-radius:10px;font-size:14px;outline:none;-webkit-appearance:none;background:#fff;min-height:44px}
+.task-editor select:focus{border-color:#009246}
+.task-editor .row input[type=date]{flex:1;padding:10px 12px;border:2px solid #e8e8e8;border-radius:10px;font-size:14px;outline:none;-webkit-appearance:none;min-height:44px}
+.task-editor .row input[type=date]:focus{border-color:#009246}
+.task-editor .cat-label{font-size:13px;font-weight:700;color:#333;margin:8px 0 4px;display:flex;align-items:center;gap:6px}
+.program-switch{display:flex;gap:8px;margin-bottom:10px}
+.program-switch button{flex:1;padding:10px;border:2px solid #e8e8e8;background:#fff;border-radius:10px;font-size:13px;font-weight:700;color:#777}
+.program-switch button.active{border-color:#009246;color:#009246;background:#f0faf3}
+.program-checks{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 12px;font-size:12px;color:#555}
+.program-checks label{display:flex;align-items:center;gap:5px;margin:0}
+.program-checks input{width:auto;margin:0}
+.class-tools{background:#fff;border-radius:14px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);margin-bottom:14px}
+.class-tools .row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.class-tools input,.class-tools select{flex:1;padding:10px 12px;border:2px solid #e8e8e8;border-radius:10px;font-size:14px;background:#fff}
+.class-tools .hint{font-size:11px;color:#999;line-height:1.5}
+.student-program-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+.program-tag{display:inline-block;padding:2px 7px;border-radius:10px;background:#eef7f1;color:#009246;font-size:10px;font-weight:700}
+.btn-sm{padding:10px 18px;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;-webkit-appearance:none;min-height:40px}
+.btn-sm:active{transform:scale(.95)}
+.btn-sm.primary{background:#009246;color:#fff}
+.btn-sm.danger{background:#fff;color:#ce2b37;border:1px solid #ce2b37}
+.btn-sm.outline{background:#fff;color:#009246;border:1px solid #009246}
+.settings-card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,.05);margin-bottom:14px}
+.settings-card h4{font-size:14px;margin-bottom:12px}
+.settings-card .hint{font-size:11px;color:#999;margin-top:6px;line-height:1.5}
+.settings-card input{width:100%;padding:10px 12px;border:2px solid #e8e8e8;border-radius:10px;font-size:14px;outline:none;-webkit-appearance:none;margin-bottom:10px}
+.settings-card input:focus{border-color:#009246}
+.settings-card .row{display:flex;gap:8px;align-items:flex-end}
+.settings-card select{width:100%;padding:10px 12px;border:2px solid #e8e8e8;border-radius:10px;font-size:14px;outline:none;-webkit-appearance:none;background:#fff;min-height:44px}
+.user-list-item{background:#fff;border-radius:10px;padding:12px 14px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 4px rgba(0,0,0,.03)}
+.role-tag{font-size:10px;padding:3px 8px;border-radius:12px;font-weight:600}
+.role-tag.teacher{background:#fce4ec;color:#c62828}
+.role-tag.student{background:#e3f2fd;color:#1565c0}
+.empty-state{text-align:center;color:#bbb;padding:40px 20px;font-size:14px}
+.empty-state .icon{font-size:48px;margin-bottom:10px}
+.toast{position:fixed;top:calc(env(safe-area-inset-top,0px) + 16px);left:50%;transform:translate(-50%,0);background:#333;color:#fff;padding:12px 24px;border-radius:30px;font-size:14px;z-index:999;pointer-events:none;white-space:nowrap;animation:slideDown .3s ease;max-width:90vw}
+@keyframes slideDown{0%{transform:translate(-50%,-18px);opacity:0}100%{transform:translate(-50%,0);opacity:1}}
+.toast.hide{animation:slideUp .3s ease forwards}
+@keyframes slideUp{0%{transform:translate(-50%,0);opacity:1}100%{transform:translate(-50%,-18px);opacity:0}}
+.confetti-container{position:fixed;inset:0;pointer-events:none;z-index:998}
+.confetti-piece{position:absolute;font-size:24px;animation:fall linear forwards}
+@keyframes fall{0%{transform:translateY(-10vh) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+.loading-overlay{position:fixed;inset:0;background:rgba(255,255,255,.85);z-index:997;display:flex;align-items:center;justify-content:center;flex-direction:column;font-size:14px;color:#888}
+.spinner{width:36px;height:36px;border:3px solid #e0e0e0;border-top-color:#009246;border-radius:50%;animation:spin .8s linear infinite;margin-bottom:10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.install-banner{display:none;background:#fff;border-radius:14px;padding:14px 18px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);align-items:center;gap:12px}
+.install-banner.show{display:flex}
+.install-banner .ib-icon{font-size:36px}
+.install-banner .ib-text{flex:1;font-size:13px;line-height:1.4}
+.install-banner .ib-btn{white-space:nowrap;padding:8px 16px;background:#009246;color:#fff;border:none;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;-webkit-appearance:none}
+.footer{text-align:center;color:#bbb;font-size:11px;margin:20px 0 10px}
+.sync-status{font-size:11px;color:#aaa;text-align:center;margin-top:6px}
+.sync-status.error{color:#ce2b37}
+.sync-status.ok{color:#009246}
+.logout-danger{width:100%;padding:14px;background:#fff;color:#ce2b37;border:2px solid #ce2b37;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:6px;-webkit-appearance:none}
+.logout-danger:active{background:#fef2f2}
+.submenu-toggle{background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.05);margin-bottom:14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:700;transition:all .15s}
+.submenu-toggle:active{background:#f5f5f5}
+.submenu-toggle span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:8px}
+.submenu-toggle .arrow{font-size:12px;color:#bbb;transition:transform .2s}
+.submenu-toggle.open .arrow{transform:rotate(90deg)}
+.submenu-body{display:none;background:#fafafa;border-radius:14px;padding:14px 18px 16px;margin-top:0;margin-bottom:14px}
+.submenu-body.show{display:block}
+.submenu-body .settings-card{box-shadow:none;margin-bottom:10px;background:#fff}
+.submenu-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.submenu-actions .btn-sm{flex:1 1 120px}
+</style>
+</head>
+<body>
+
+<div class="loading-overlay" id="loadingOverlay" style="display:none">
+  <div class="spinner"></div>
+  <span id="loadingText"></span>
+</div>
+<div id="toast" class="toast" style="display:none"></div>
+<div id="confettiContainer" class="confetti-container"></div>
+
+<!-- LOGIN -->
+<div class="page active" id="loginPage">
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="logo">🇮🇹</div>
+      <h1 id="loginTitle"></h1>
+      <div class="sub" id="loginSub"></div>
+      <div class="error" id="loginError"></div>
+      <label id="loginUserLabel"></label>
+      <input type="text" id="loginUser" placeholder="" autocomplete="username" autocapitalize="none">
+      <label id="loginPassLabel"></label>
+      <input type="password" id="loginPass" placeholder="" autocomplete="current-password">
+      <button class="btn btn-primary" id="loginBtn" onclick="doLogin()"></button>
+      <div class="switch" id="registerSwitch" style="display:none"><span id="switchToRegister1"></span> <a onclick="showRegister()" id="switchToRegisterLink"></a></div>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER -->
+<div class="page" id="registerPage">
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="logo">📝</div>
+      <h1 id="regTitle"></h1>
+      <div class="sub" id="regSub"></div>
+      <div class="error" id="regError"></div>
+      <label id="regUserLabel"></label>
+      <input type="text" id="regUser" placeholder="" autocapitalize="none">
+      <label id="regPassLabel"></label>
+      <input type="password" id="regPass" placeholder="">
+      <label id="regPass2Label"></label>
+      <input type="password" id="regPass2" placeholder="">
+      <button class="btn btn-primary" id="regBtn" onclick="doRegister()"></button>
+      <div class="switch"><span id="switchToLogin1"></span> <a onclick="showLogin()" id="switchToLoginLink"></a></div>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER -->
+<div class="page" id="teacherPage">
+  <div class="container">
+    <div class="install-banner" id="installBannerT">
+      <span class="ib-icon">📲</span>
+      <span class="ib-text" id="installBannerText"></span>
+      <button class="ib-btn" id="installBannerBtn" onclick="installPWA()"></button>
+    </div>
+    <div class="header">
+      <div class="hc">
+        <div>
+          <h1 id="teacherHeader"></h1>
+          <div class="user-tag" id="teacherNameTag"></div>
+        </div>
+      </div>
+    </div>
+    <div id="teacherMain"></div>
+    <div class="sync-status" id="syncStatus"></div>
+  </div>
+  <div class="bottom-nav" id="teacherNav">
+    <button class="nav-item active" onclick="switchTeacherTab('students')"><span class="nav-icon">📊</span><span id="tnav_students"></span></button>
+    <button class="nav-item" onclick="switchTeacherTab('tasks')"><span class="nav-icon">📝</span><span id="tnav_tasks"></span></button>
+    <button class="nav-item" onclick="switchTeacherTab('podium')"><span class="nav-icon">🏆</span><span id="tnav_podium"></span></button>
+    <button class="nav-item" onclick="switchTeacherTab('chat')"><span class="nav-icon">💬</span><span id="tnav_chat"></span></button>
+    <button class="nav-item" onclick="switchTeacherTab('settings')"><span class="nav-icon">⚙️</span><span id="tnav_settings"></span></button>
+  </div>
+</div>
+
+<!-- STUDENT -->
+<div class="page" id="studentPage">
+  <div class="container">
+    <div class="install-banner" id="installBannerS">
+      <span class="ib-icon">📲</span>
+      <span class="ib-text" id="installBannerTextS"></span>
+      <button class="ib-btn" id="installBannerBtnS" onclick="installPWA()"></button>
+    </div>
+    <div class="header">
+      <div class="hc">
+        <div>
+          <h1 id="studentHeader"></h1>
+          <div class="user-tag" id="studentNameTag"></div>
+        </div>
+      </div>
+    </div>
+    <div id="studentMain"></div>
+  </div>
+  <div class="bottom-nav" id="studentNav">
+    <button class="nav-item active" onclick="switchStudentTab('tasks')"><span class="nav-icon">📝</span><span id="snav_tasks"></span></button>
+    <button class="nav-item" onclick="switchStudentTab('podium')"><span class="nav-icon">🏆</span><span id="snav_podium"></span></button>
+    <button class="nav-item" onclick="switchStudentTab('chat')"><span class="nav-icon">💬</span><span id="snav_chat"></span></button>
+    <button class="nav-item" onclick="switchStudentTab('settings')"><span class="nav-icon">⚙️</span><span id="snav_settings"></span></button>
+  </div>
+</div>
+
+<script>
+// ===== i18n =====
+const I18N = {
+  'zh-CN': {
+    loginTitle:'A1 STUDIO暑期打卡', loginSub:'暑期学习打卡', loginUserLabel:'用户名', loginPassLabel:'密码',
+    loginBtn:'登 录', switchToRegister1:'还没有账号？', switchToRegisterLink:'注册学生账号',
+    regTitle:'注册学生账号', regSub:'仅限学生注册', regUserLabel:'用户名', regPassLabel:'密码', regPass2Label:'确认密码',
+    regBtn:'注 册', switchToLogin1:'已有账号？', switchToLoginLink:'返回登录',
+    errorFill:'请输入用户名和密码', errorPassShort:'密码至少4位', errorPassMismatch:'两次密码不一致',
+    errorReserved:'该用户名为教师保留', errorUserExists:'用户名已存在', errorNotFound:'用户不存在',
+    errorWrongPass:'密码错误', errorNetwork:'网络错误，请重试', errorDeletedUser:'该用户名已被删除，请换一个用户名',
+    regSuccess:'✅ 注册成功！请登录', regSuccessNoSync:'✅ 注册成功！（教师端配置Token后可同步）',
+    teacherHeader:'👨‍🏫 教师端', studentHeader:'A1 STUDIO暑期打卡',
+    tnav_students:'学生', tnav_tasks:'作业', tnav_podium:'排行榜', tnav_chat:'聊天', tnav_settings:'设置',
+    snav_tasks:'作业', snav_podium:'排行榜', snav_chat:'聊天', snav_settings:'设置',
+    installBanner:'添加到主屏幕，像 App 一样使用', installBtn:'安装',
+    podiumTitle:'🏆 Bravo 排行榜', podiumEmpty:'虚位以待', podiumHint:'仅展示已同意公开的前三名，实时更新',
+    podiumMyStreak:'我的连续打卡', podiumMyFlowers:'我的 Bravo',
+    leaderboardConsentTitle:'参与公开排行榜', leaderboardConsentBody:'排行榜会向所有登录用户公开你的用户名和 Bravo 数量，并将这些信息上传到服务器用于实时排名。你的学习作业和打卡记录不会公开。你可在“设置”中随时退出排行榜。', leaderboardConsentAgree:'同意并参与', leaderboardConsentDecline:'暂不参与', leaderboardPrivacyTitle:'排行榜隐私', leaderboardPrivacyJoined:'你已同意公开用户名和 Bravo 数量，用于全体用户可见的实时排行榜。', leaderboardPrivacyNotJoined:'你未参与公开排行榜；你的用户名和 Bravo 数量不会出现在排行榜中。', leaderboardJoin:'参与排行榜', leaderboardLeave:'退出排行榜', leaderboardLeft:'已退出公开排行榜',
+    noStudents:'还没有学生注册', studentListTitle:'👥 学生打卡', todayCheckin:'今日', todayN:'今日',
+    checkinDetail:'打卡', checkinDate:'打卡日期', checkinDateHint:'仅可选择本周内截至今天的日期；三日内打卡计入 Bravo。',
+    checkinDateOutOfRange:'只能选择本周内截至今天的日期', checkinDone:'已完成', checkinPending:'待完成', checkinCollapse:'收起',
+    streakDays:'天', flowersUnit:'bravo',
+    taskDefaultHint:'💡 默认作业适用于所有学生。选择具体学生可为其单独定制，未定制则使用默认。',
+    taskDefaultOption:'📋 默认（所有学生）', taskSave:'💾 保存', taskSaved:'作业已保存', taskSyncSaved:'并同步',
+    taskHomework:'📖 背课文', taskDictation:'🔤 背单词', taskRecite:'✍️ 笔头作业', taskSpeaking:'🗣️ 口语 · Conversazione',
+    taskItalian:'意大利语', taskPortfolio:'作品集', taskTargetClass:'🏫 班级', taskTargetStudent:'👤 学生', taskClassOption:'🏫 班级：', taskPortfolioTitle:'作品集',
+    taskPortfolioContent:'作品集作业', studentWeeklyTasks:'📅 本周作业', studentNoWeeklyTasks:'本周暂无已布置作业',
+    classManage:'🏫 班级管理', className:'班级名称', classCreate:'新建班级', classAddStudent:'加入班级', classRename:'改名', classDelete:'删除班级', classRemoveStudent:'移出', classUnassigned:'未分班学生', classCreated:'✅ 班级已保存', classUpdated:'✅ 班级已更新',
+    classChooseStudent:'请选择学生',
+    programItalian:'意大利语', programPortfolio:'作品集', programTitle:'专业分类', programSaved:'✅ 专业已更新',
+    settingsToken:'☁️ 云端同步', settingsTokenOk:'✅ Supabase 已启用', settingsTokenChange:'刷新',
+    settingsTokenHint:'数据已迁移到 Supabase，不再使用 GitHub 作为数据库。',
+    settingsTokenWarn:'⚠️ 请配置 GitHub Token', settingsTokenWarnHint1:'数据同步需要 GitHub Personal Access Token。',
+    settingsTokenWarnHint2:'点击生成 Token', settingsTokenWarnHint3:' → 选 Generate new token (classic) → 勾选 repo → 粘贴到下方。',
+    settingsTokenWarnHint4:'不配置 Token 也可以使用，但数据只保存在本地。', settingsTokenPlaceholder:'ghp_...',
+    settingsTokenSave:'保存', settingsTokenVerify:'验证 Token...', settingsTokenOK:'✅ Token 配置成功，数据已同步！',
+    settingsTokenBad:'❌ Token 无效，请检查', settingsTokenBuiltin:'已恢复使用内置 Token',
+    settingsAddTeacher:'➕ 添加账号', settingsTeacherUser:'用户名', settingsTeacherPass:'密码', settingsAdd:'添加', settingsAddStudent:'➕ 添加学生账号', settingsAccountType:'账号类型',
+    settingsUsers:'👤 所有用户', settingsMainAdmin:'主管理员', settingsDelete:'删除', settingsTeacher:'教师', settingsStudent:'学生',
+    settingsLogout:'🚪 退出账号', settingsMyAccount:'👤 我的账号', settingsContactTeacher:'如需修改密码、删除账号或删除学习数据，请联系教师或 A1 STUDIO。',
+    settingsLanguage:'🌐 界面语言', settingsAccount:'👤 账号', settingsChangePassword:'🔒 更改密码',
+    settingsOldPassword:'当前密码', settingsNewPassword:'新密码', settingsNewPassword2:'确认新密码', refreshTasks:'刷新作业', settingsResetStudentPassword:'🔑 重置学生密码', settingsResetStudentHint:'输入学生用户名，将密码重置为 123456', settingsResetStudentBtn:'重置密码', settingsStudentPwdReset:'✅ 学生密码已重置为 123456',
+    settingsChangePwdBtn:'修改密码', settingsPwdChanged:'✅ 密码已修改', settingsPwdWrong:'当前密码错误',
+    chatRefresh:'🔄 刷新消息', chatPlaceholder:'输入消息...', chatEmpty:'暂无消息，来打个招呼吧！', chatGroupHint:'群组聊天 · 所有师生可见 · 长按消息可隐藏',
+    chatCompliance:'请保持课堂沟通友善。遇到不当内容可举报或屏蔽该用户。',
+    chatHide:'隐藏', chatReport:'举报', chatBlock:'屏蔽用户', chatUnblock:'取消屏蔽', chatBlocked:'✅ 已屏蔽该用户', chatUnblocked:'✅ 已取消屏蔽',
+    chatReported:'✅ 已生成举报邮件，请发送给 A1 STUDIO', chatBlockedUsers:'聊天屏蔽名单', chatNoBlockedUsers:'暂无屏蔽用户',
+    chatBlockedContent:'消息包含不适合课堂的内容，请修改后再发送。',
+    confirmDeleteChat:'确定隐藏这条消息？', confirmBlockChatUser:'确定屏蔽该用户的聊天消息？', chatDeleted:'✅ 消息已隐藏',
+    loading:'加载中...', syncing:'同步中...', syncOK:'✅ 已同步', syncFail:'⚠️ 同步失败，使用本地缓存', syncNoToken:'⚙️ 请在设置中配置 GitHub Token',
+    taskReadonlyHint:'💡 打卡由教师完成，请完成作业后联系老师',
+    footer:'Buono studio! 🇮🇹', login:'登 录',
+    flowerGot:'👏 获得 1 个 bravo！', allDone:'🎉 今日全部完成！太棒了！',
+    allDoneStudent:'🎉 今日全部完成！',
+    confirmDeleteUser:'确定删除用户', confirmDeleteUserMsg:'此操作不可恢复。',
+    confirmRemoveToken:'确定移除 Token？',
+    userDeleted:'✅ 已删除', teacherAdded:'✅ 账号已添加',
+    checkinSaved:'打卡已更新'
+  },
+  'en': {
+    loginTitle:'A1 STUDIO Summer Check-in', loginSub:'Summer learning check-in', loginUserLabel:'Username', loginPassLabel:'Password',
+    loginBtn:'Login', switchToRegister1:'No account? ', switchToRegisterLink:'Register',
+    regTitle:'Student Registration', regSub:'Students only', regUserLabel:'Username', regPassLabel:'Password', regPass2Label:'Confirm Password',
+    regBtn:'Register', switchToLogin1:'Already have an account? ', switchToLoginLink:'Back to Login',
+    errorFill:'Please fill in username and password', errorPassShort:'Password must be at least 4 characters', errorPassMismatch:'Passwords do not match',
+    errorReserved:'This username is reserved for teachers', errorUserExists:'Username already exists', errorNotFound:'User not found',
+    errorWrongPass:'Wrong password', errorNetwork:'Network error, please retry', errorDeletedUser:'This username was deleted. Please choose another one',
+    regSuccess:'✅ Registered! Please login', regSuccessNoSync:'✅ Registered! (Sync after teacher configures Token)',
+    teacherHeader:'👨‍🏫 Teacher', studentHeader:'A1 STUDIO Summer Check-in',
+    tnav_students:'Students', tnav_tasks:'Tasks', tnav_podium:'Podium', tnav_chat:'Chat', tnav_settings:'Settings',
+    snav_tasks:'Tasks', snav_podium:'Podium', snav_chat:'Chat', snav_settings:'Settings',
+    installBanner:'Add to Home Screen', installBtn:'Install',
+    podiumTitle:'🏆 Bravo Podium', podiumEmpty:'Waiting', podiumHint:'Top 3 participants, live updates',
+    podiumMyStreak:'My Streak', podiumMyFlowers:'My Bravo',
+    leaderboardConsentTitle:'Join the public leaderboard', leaderboardConsentBody:'The leaderboard shares your username and Bravo total with all signed-in users and uploads this information to our server for live ranking. Your homework and check-in records are not public. You can leave the leaderboard at any time in Settings.', leaderboardConsentAgree:'Agree and join', leaderboardConsentDecline:'Not now', leaderboardPrivacyTitle:'Leaderboard privacy', leaderboardPrivacyJoined:'You agreed to share your username and Bravo total in the live leaderboard visible to signed-in users.', leaderboardPrivacyNotJoined:'You are not in the public leaderboard. Your username and Bravo total will not appear there.', leaderboardJoin:'Join leaderboard', leaderboardLeave:'Leave leaderboard', leaderboardLeft:'Left the public leaderboard',
+    noStudents:'No students registered yet', studentListTitle:'👥 Students', todayCheckin:'Today', todayN:'Today',
+    checkinDetail:'Check-in', checkinDate:'Check-in Date', checkinDateHint:'Only dates from this week through today are available; check-ins within 3 days count for Bravo.',
+    checkinDateOutOfRange:'Only dates from this week through today are available', checkinDone:'Done', checkinPending:'Pending', checkinCollapse:'Collapse',
+    streakDays:'days', flowersUnit:'bravo',
+    taskDefaultHint:'💡 Default tasks apply to all students. Select a student to customize individually.',
+    taskDefaultOption:'📋 Default (All Students)', taskSave:'💾 Save', taskSaved:'Tasks saved', taskSyncSaved:'and synced',
+    taskHomework:'📖 Text Recitation', taskDictation:'🔤 Word Recitation', taskRecite:'✍️ Written Work', taskSpeaking:'🗣️ Speaking · Conversazione',
+    taskItalian:'Italian', taskPortfolio:'Portfolio', taskTargetClass:'🏫 Class', taskTargetStudent:'👤 Student', taskClassOption:'🏫 Class: ', taskPortfolioTitle:'Portfolio',
+    taskPortfolioContent:'Portfolio Task', studentWeeklyTasks:'📅 This Week', studentNoWeeklyTasks:'No assigned tasks this week',
+    classManage:'🏫 Class Management', className:'Class name', classCreate:'Create class', classAddStudent:'Add to class', classRename:'Rename', classDelete:'Delete class', classRemoveStudent:'Remove', classUnassigned:'Unassigned students', classCreated:'✅ Class saved', classUpdated:'✅ Class updated',
+    classChooseStudent:'Select student',
+    programItalian:'Italian', programPortfolio:'Portfolio', programTitle:'Major category', programSaved:'✅ Category updated',
+    settingsToken:'☁️ Cloud Sync', settingsTokenOk:'✅ Supabase enabled', settingsTokenChange:'Refresh',
+    settingsTokenHint:'Data is now stored in Supabase. GitHub is no longer used as the database.',
+    settingsTokenWarn:'⚠️ Configure GitHub Token', settingsTokenWarnHint1:'Data sync requires a GitHub Personal Access Token.',
+    settingsTokenWarnHint2:'Generate Token', settingsTokenWarnHint3:' → Select Generate new token (classic) → Check repo → Paste below.',
+    settingsTokenWarnHint4:'You can still use the app without a token, but data stays local.', settingsTokenPlaceholder:'ghp_...',
+    settingsTokenSave:'Save', settingsTokenVerify:'Verifying token...', settingsTokenOK:'✅ Token configured, data synced!',
+    settingsTokenBad:'❌ Invalid token', settingsTokenBuiltin:'Reverted to built-in token',
+    settingsAddTeacher:'➕ Add Account', settingsTeacherUser:'Username', settingsTeacherPass:'Password', settingsAdd:'Add', settingsAddStudent:'➕ Add Student', settingsAccountType:'Account type',
+    settingsUsers:'👤 All Users', settingsMainAdmin:'Main Admin', settingsDelete:'Delete', settingsTeacher:'Teacher', settingsStudent:'Student',
+    settingsLogout:'🚪 Logout', settingsMyAccount:'👤 My Account', settingsContactTeacher:'Contact your teacher or A1 STUDIO to change password, delete your account, or delete learning data.',
+    settingsLanguage:'🌐 Language', settingsAccount:'👤 Account', settingsChangePassword:'🔒 Change Password',
+    settingsOldPassword:'Current Password', settingsNewPassword:'New Password', settingsNewPassword2:'Confirm New Password', refreshTasks:'Refresh Tasks', settingsResetStudentPassword:'🔑 Reset Student Password', settingsResetStudentHint:'Enter a student username to reset the password to 123456', settingsResetStudentBtn:'Reset Password', settingsStudentPwdReset:'✅ Student password reset to 123456',
+    settingsChangePwdBtn:'Change Password', settingsPwdChanged:'✅ Password changed', settingsPwdWrong:'Current password is incorrect',
+    chatRefresh:'🔄 Refresh', chatPlaceholder:'Type a message...', chatEmpty:'No messages yet. Say hello!', chatGroupHint:'Group chat · Visible to all · Long press to hide',
+    chatCompliance:'Keep classroom chat respectful. You can report content or block a user.',
+    chatHide:'Hide', chatReport:'Report', chatBlock:'Block user', chatUnblock:'Unblock', chatBlocked:'✅ User blocked', chatUnblocked:'✅ User unblocked',
+    chatReported:'✅ Report email prepared. Please send it to A1 STUDIO.', chatBlockedUsers:'Blocked chat users', chatNoBlockedUsers:'No blocked users',
+    chatBlockedContent:'This message contains content that is not suitable for class. Please edit it.',
+    confirmDeleteChat:'Hide this message?', confirmBlockChatUser:'Block this user’s chat messages?', chatDeleted:'✅ Message hidden',
+    loading:'Loading...', syncing:'Syncing...', syncOK:'✅ Synced', syncFail:'⚠️ Sync failed, using local cache', syncNoToken:'⚙️ Configure GitHub Token in Settings',
+    taskReadonlyHint:'💡 Check-in is done by your teacher. Contact them after completing tasks.',
+    footer:'Buono studio! 🇮🇹', login:'Login',
+    flowerGot:'👏 You earned 1 bravo!', allDone:'🎉 All tasks completed today! Great job!',
+    allDoneStudent:'🎉 All done today!',
+    confirmDeleteUser:'Delete user', confirmDeleteUserMsg:'This action cannot be undone.',
+    confirmRemoveToken:'Remove token?',
+    userDeleted:'✅ Deleted', teacherAdded:'✅ Account added',
+    checkinSaved:'Check-in updated'
+  },
+  'it': {
+    loginTitle:'A1 STUDIO Check-in Estivo', loginSub:'Check-in studio estivo', loginUserLabel:'Nome utente', loginPassLabel:'Password',
+    loginBtn:'Accedi', switchToRegister1:'Non hai un account? ', switchToRegisterLink:'Registrati',
+    regTitle:'Registrazione studente', regSub:'Solo per studenti', regUserLabel:'Nome utente', regPassLabel:'Password', regPass2Label:'Conferma password',
+    regBtn:'Registrati', switchToLogin1:'Hai già un account? ', switchToLoginLink:'Torna al login',
+    errorFill:'Inserisci nome utente e password', errorPassShort:'La password deve avere almeno 4 caratteri', errorPassMismatch:'Le password non corrispondono',
+    errorReserved:'Nome utente riservato agli insegnanti', errorUserExists:'Nome utente già esistente', errorNotFound:'Utente non trovato',
+    errorWrongPass:'Password errata', errorNetwork:'Errore di rete, riprova', errorDeletedUser:'Questo nome utente è stato eliminato. Scegline un altro',
+    regSuccess:'✅ Registrato! Accedi', regSuccessNoSync:'✅ Registrato! (Sincronizza dopo che l\'insegnante configura il Token)',
+    teacherHeader:'👨‍🏫 Insegnante', studentHeader:'A1 STUDIO Check-in Estivo',
+    tnav_students:'Studenti', tnav_tasks:'Compiti', tnav_podium:'Podio', tnav_chat:'Chat', tnav_settings:'Impostazioni',
+    snav_tasks:'Compiti', snav_podium:'Podio', snav_chat:'Chat', snav_settings:'Impostazioni',
+    installBanner:'Aggiungi alla schermata Home', installBtn:'Installa',
+    podiumTitle:'🏆 Podio Bravo', podiumEmpty:'In attesa', podiumHint:'Primi 3 partecipanti, aggiornato in tempo reale',
+    podiumMyStreak:'Mia striscia', podiumMyFlowers:'Miei Bravo',
+    leaderboardConsentTitle:'Partecipa alla classifica pubblica', leaderboardConsentBody:'La classifica mostra a tutti gli utenti connessi il tuo nome utente e il totale Bravo e carica queste informazioni sul nostro server per l’aggiornamento in tempo reale. Compiti e check-in non sono pubblici. Puoi uscire dalla classifica in qualsiasi momento nelle Impostazioni.', leaderboardConsentAgree:'Accetto e partecipo', leaderboardConsentDecline:'Non ora', leaderboardPrivacyTitle:'Privacy della classifica', leaderboardPrivacyJoined:'Hai acconsentito a condividere nome utente e totale Bravo nella classifica in tempo reale visibile agli utenti connessi.', leaderboardPrivacyNotJoined:'Non partecipi alla classifica pubblica. Il tuo nome utente e totale Bravo non appariranno.', leaderboardJoin:'Partecipa alla classifica', leaderboardLeave:'Esci dalla classifica', leaderboardLeft:'Uscito dalla classifica pubblica',
+    noStudents:'Nessuno studente registrato', studentListTitle:'👥 Studenti', todayCheckin:'Oggi', todayN:'Oggi',
+    checkinDetail:'Check-in', checkinDate:'Data check-in', checkinDateHint:'Sono disponibili solo le date di questa settimana fino a oggi; i check-in entro 3 giorni contano per Bravo.',
+    checkinDateOutOfRange:'Sono disponibili solo le date di questa settimana fino a oggi', checkinDone:'Fatto', checkinPending:'In attesa', checkinCollapse:'Chiudi',
+    streakDays:'giorni', flowersUnit:'bravo',
+    taskDefaultHint:'💡 I compiti predefiniti valgono per tutti. Seleziona uno studente per personalizzarli.',
+    taskDefaultOption:'📋 Predefinito (tutti)', taskSave:'💾 Salva', taskSaved:'Compiti salvati', taskSyncSaved:'e sincronizzati',
+    taskHomework:'📖 Recita il testo', taskDictation:'🔤 Recita parole', taskRecite:'✍️ Compiti scritti', taskSpeaking:'🗣️ Conversazione',
+    taskItalian:'Italiano', taskPortfolio:'Portfolio', taskTargetClass:'🏫 Classe', taskTargetStudent:'👤 Studente', taskClassOption:'🏫 Classe: ', taskPortfolioTitle:'Portfolio',
+    taskPortfolioContent:'Compito portfolio', studentWeeklyTasks:'📅 Questa settimana', studentNoWeeklyTasks:'Nessun compito assegnato questa settimana',
+    classManage:'🏫 Gestione classi', className:'Nome classe', classCreate:'Crea classe', classAddStudent:'Aggiungi alla classe', classRename:'Rinomina', classDelete:'Elimina classe', classRemoveStudent:'Rimuovi', classUnassigned:'Studenti senza classe', classCreated:'✅ Classe salvata', classUpdated:'✅ Classe aggiornata',
+    classChooseStudent:'Seleziona studente',
+    programItalian:'Italiano', programPortfolio:'Portfolio', programTitle:'Categoria', programSaved:'✅ Categoria aggiornata',
+    settingsToken:'☁️ Sincronizzazione cloud', settingsTokenOk:'✅ Supabase attivo', settingsTokenChange:'Aggiorna',
+    settingsTokenHint:'I dati ora sono salvati in Supabase. GitHub non è più usato come database.',
+    settingsTokenWarn:'⚠️ Configura GitHub Token', settingsTokenWarnHint1:'La sincronizzazione richiede un GitHub Personal Access Token.',
+    settingsTokenWarnHint2:'Genera Token', settingsTokenWarnHint3:' → Seleziona Generate new token (classic) → Spunta repo → Incolla sotto.',
+    settingsTokenWarnHint4:'Puoi usare l\'app senza token, ma i dati restano locali.', settingsTokenPlaceholder:'ghp_...',
+    settingsTokenSave:'Salva', settingsTokenVerify:'Verifica token...', settingsTokenOK:'✅ Token configurato, dati sincronizzati!',
+    settingsTokenBad:'❌ Token non valido', settingsTokenBuiltin:'Ripristinato il token integrato',
+    settingsAddTeacher:'➕ Aggiungi account', settingsTeacherUser:'Nome utente', settingsTeacherPass:'Password', settingsAdd:'Aggiungi', settingsAddStudent:'➕ Aggiungi studente', settingsAccountType:'Tipo account',
+    settingsUsers:'👤 Tutti gli utenti', settingsMainAdmin:'Admin principale', settingsDelete:'Elimina', settingsTeacher:'Insegnante', settingsStudent:'Studente',
+    settingsLogout:'🚪 Esci', settingsMyAccount:'👤 Il mio account', settingsContactTeacher:'Contatta l\'insegnante o A1 STUDIO per cambiare password, eliminare account o dati di studio.',
+    settingsLanguage:'🌐 Lingua', settingsAccount:'👤 Account', settingsChangePassword:'🔒 Cambia password',
+    settingsOldPassword:'Password attuale', settingsNewPassword:'Nuova password', settingsNewPassword2:'Conferma nuova password', refreshTasks:'Aggiorna compiti', settingsResetStudentPassword:'🔑 Reimposta password studente', settingsResetStudentHint:'Inserisci il nome utente dello studente; la password sarà 123456', settingsResetStudentBtn:'Reimposta password', settingsStudentPwdReset:'✅ Password studente reimpostata a 123456',
+    settingsChangePwdBtn:'Cambia password', settingsPwdChanged:'✅ Password cambiata', settingsPwdWrong:'Password attuale errata',
+    chatRefresh:'🔄 Aggiorna', chatPlaceholder:'Scrivi un messaggio...', chatEmpty:'Nessun messaggio. Di\' ciao!', chatGroupHint:'Chat di gruppo · Visibile a tutti · Premi a lungo per nascondere',
+    chatCompliance:'Mantieni la chat rispettosa. Puoi segnalare contenuti o bloccare un utente.',
+    chatHide:'Nascondi', chatReport:'Segnala', chatBlock:'Blocca utente', chatUnblock:'Sblocca', chatBlocked:'✅ Utente bloccato', chatUnblocked:'✅ Utente sbloccato',
+    chatReported:'✅ Email di segnalazione preparata. Inviala ad A1 STUDIO.', chatBlockedUsers:'Utenti bloccati in chat', chatNoBlockedUsers:'Nessun utente bloccato',
+    chatBlockedContent:'Questo messaggio contiene contenuti non adatti alla classe. Modificalo.',
+    confirmDeleteChat:'Nascondere questo messaggio?', confirmBlockChatUser:'Bloccare i messaggi di questo utente?', chatDeleted:'✅ Messaggio nascosto',
+    loading:'Caricamento...', syncing:'Sincronizzazione...', syncOK:'✅ Sincronizzato', syncFail:'⚠️ Sincronizzazione fallita, uso cache locale', syncNoToken:'⚙️ Configura GitHub Token nelle Impostazioni',
+    taskReadonlyHint:'💡 Il check-in è fatto dall\'insegnante. Contattalo dopo aver completato i compiti.',
+    footer:'Buono studio! 🇮🇹', login:'Accedi',
+    flowerGot:'👏 Hai guadagnato 1 bravo!', allDone:'🎉 Tutti i compiti completati oggi! Ottimo lavoro!',
+    allDoneStudent:'🎉 Tutto fatto oggi!',
+    confirmDeleteUser:'Elimina utente', confirmDeleteUserMsg:'Questa azione non può essere annullata.',
+    confirmRemoveToken:'Rimuovere il token?',
+    userDeleted:'✅ Eliminato', teacherAdded:'✅ Account aggiunto',
+    checkinSaved:'Check-in aggiornato'
+  }
+};
+
+let lang = localStorage.getItem('italiano_lang') || 'zh-CN';
+function _(key) { return (I18N[lang] && I18N[lang][key]) || I18N['zh-CN'][key] || key; }
+
+function setLang(l){
+  lang=l; localStorage.setItem('italiano_lang',l);
+  if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
+  document.body.classList.remove('keyboard-open');
+  setTimeout(()=>{updateAllUIText();document.body.classList.remove('keyboard-open');},0);
+}
+
+function updateAllUIText(){
+  document.getElementById('loginTitle').textContent=_('loginTitle');
+  document.getElementById('loginSub').textContent=_('loginSub');
+  document.getElementById('loginUserLabel').textContent=_('loginUserLabel');
+  document.getElementById('loginPassLabel').textContent=_('loginPassLabel');
+  document.getElementById('loginBtn').textContent=_('loginBtn');
+  document.getElementById('switchToRegister1').textContent=_('switchToRegister1');
+  document.getElementById('switchToRegisterLink').textContent=_('switchToRegisterLink');
+  document.getElementById('regTitle').textContent=_('regTitle');
+  document.getElementById('regSub').textContent=_('regSub');
+  document.getElementById('regUserLabel').textContent=_('regUserLabel');
+  document.getElementById('regPassLabel').textContent=_('regPassLabel');
+  document.getElementById('regPass2Label').textContent=_('regPass2Label');
+  document.getElementById('regBtn').textContent=_('regBtn');
+  document.getElementById('switchToLogin1').textContent=_('switchToLogin1');
+  document.getElementById('switchToLoginLink').textContent=_('switchToLoginLink');
+  document.getElementById('teacherHeader').textContent=_('teacherHeader');
+  document.getElementById('studentHeader').textContent=_('studentHeader');
+  ['tnav_students','tnav_tasks','tnav_podium','tnav_chat','tnav_settings',
+   'snav_tasks','snav_podium','snav_chat','snav_settings'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.textContent=_(id);
+  });
+  document.getElementById('installBannerText').textContent=_('installBanner');
+  document.getElementById('installBannerBtn').textContent=_('installBtn');
+  document.getElementById('installBannerTextS').textContent=_('installBanner');
+  document.getElementById('installBannerBtnS').textContent=_('installBtn');
+  // Refresh current page content if logged in
+  if(currentUser){
+    if(currentUser.role==='teacher'){
+      const activeTab=document.querySelector('#teacherNav .nav-item.active');
+      if(activeTab){
+        const idx=Array.from(document.querySelectorAll('#teacherNav .nav-item')).indexOf(activeTab);
+        const tabs=['students','tasks','podium','chat','settings'];
+        if(tabs[idx]) switchTeacherTab(tabs[idx]);
+      }
+    }else{
+      const activeTab=document.querySelector('#studentNav .nav-item.active');
+      if(activeTab){
+        const idx=Array.from(document.querySelectorAll('#studentNav .nav-item')).indexOf(activeTab);
+        const tabs=['tasks','podium','chat','settings'];
+        if(tabs[idx]) switchStudentTab(tabs[idx]);
+      }
+    }
+  }
+}
+
+// ===== CONFIG =====
+const SUPABASE_URL='https://imzxxbxdjwqfduwsqipz.supabase.co';
+const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imltenh4YnhkandxZmR1d3NxaXB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzMTU0MzIsImV4cCI6MjA5Njg5MTQzMn0.cq8SAZU2vOl3VMdgML4LlpSKCCH-AFrYSjW64MHipnk';
+const APP_API_URL='';
+const APP_VERSION='v21';
+const CHAT_MAX=200, PENDING_USERS_KEY='italiano_pending_users', DELETED_USER_PREFIX='__deleted_user__:', SUPABASE_TIMEOUT_MS=12000, SUPABASE_RETRIES=2;
+const META_CLASSES_KEY='__meta_classes__', META_PROGRAMS_KEY='__meta_student_programs__', META_CLASS_TASKS_KEY='__meta_class_tasks__', META_LEADERBOARD_CONSENT_KEY='__meta_leaderboard_consents__', PORTFOLIO_PREFIX='__portfolio__:';
+const SUPPORT_EMAIL='lanbeier7@gmail.com', CHAT_BLOCKED_USERS_KEY='italiano_blocked_chat_users';
+const CHAT_BLOCKED_TERMS=['fuck','shit','色情','暴力','毒品','赌博','诈骗','辱骂','自杀'];
+let appData=null, currentUser=null, authToken=localStorage.getItem('italiano_auth_token')||'', teacherTaskStudent='__default__', teacherTaskProgram='italian', studentTaskProgram='italian', teacherCheckinDate='', expandedStudentCheckin='', newAccountPrograms={italian:true,portfolio:false}, classEditInProgress=false, teacherOpenSubmenus=new Set(), chatTimer=null, teacherRefreshTimer=null, chatLongPressTimer=null, saveLock=Promise.resolve();
+let currentTeacherTab='students', currentStudentTab='tasks', teacherViewEpoch=0, studentViewEpoch=0;
+
+function getToken(){return SUPABASE_ANON_KEY;}
+function setToken(t){}
+function hasToken(){return true;}
+
+async function fetchData(){return fetchDataFromApi();}
+
+async function fetchDataFromApi(){
+  await supabaseClearOldChat();
+  appData=await fetchSupabaseData();
+  saveLocalData();
+}
+
+async function fetchSupabaseData(){
+  const results=await Promise.allSettled([
+    supabaseRequest('app_users?select=*'),
+    supabaseRequest('daily_tasks?select=*'),
+    supabaseRequest('student_tasks?select=*'),
+    supabaseRequest('checkins?select=*'),
+    supabaseRequest('streaks?select=*'),
+    supabaseRequest('chat_messages?select=*&created_at=gte.'+encodeURIComponent(getTodayStartISO())+'&order=created_at.asc'),
+    supabaseRequest('hidden_chat_messages?select=*'),
+    supabaseRequest('leaderboard_entries?select=*')
+  ]);
+  if(results[0].status!=='fulfilled')throw results[0].reason;
+  const fallback=appData||loadLocalData();
+  const users=results[0].value||[];
+  const daily=results[1].status==='fulfilled'?results[1].value||[]:[];
+  const student=results[2].status==='fulfilled'?results[2].value||[]:[];
+  const checkins=results[3].status==='fulfilled'?results[3].value||[]:Object.entries(fallback.checkins||{}).flatMap(([username,dates])=>Object.entries(dates||{}).map(([checkin_date,c])=>Object.assign({username,checkin_date},c)));
+  const streaks=results[4].status==='fulfilled'?results[4].value||[]:Object.entries(fallback.streaks||{}).map(([username,s])=>({username,streak:s.streak||0,flowers:s.flowers||0,last_checkin_date:s.lastCheckinDate||null,updated_at:s.bravoReachedAt||s.updatedAt||null}));
+  const chat=results[5].status==='fulfilled'?results[5].value||[]:fallback.chatMessages||[];
+  const hidden=results[6].status==='fulfilled'?results[6].value||[]:[];
+  const leaderboard=results[7].status==='fulfilled'?results[7].value||[]:fallback.leaderboard||[];
+  const data=getInitialData();data.users={};data.chatMessages=[];data.hiddenChatMessages={};data.deletedUsers=[];data.classes={};data.studentPrograms={};data.classTasks={};data.leaderboard={};data.leaderboardConsents={};
+  const deletedUsers=new Set();
+  daily.forEach(t=>{if((t.task_date||'').startsWith(DELETED_USER_PREFIX))deletedUsers.add(decodeDeletedUsername(t.task_date));});
+  data.deletedUsers=Array.from(deletedUsers);
+  users.forEach(u=>{if(!deletedUsers.has(u.username))data.users[u.username]={password:u.password,role:u.role};});
+  users.filter(u=>deletedUsers.has(u.username)).forEach(u=>{deleteAccountStrict(u.username).catch(()=>{});});
+  daily.forEach(t=>{
+    const key=t.task_date||'';
+    if(key.startsWith(DELETED_USER_PREFIX))return;
+    if(key===META_CLASSES_KEY){data.classes=parseMetaJSON(t.homework,{});return;}
+    if(key===META_PROGRAMS_KEY){data.studentPrograms=parseMetaJSON(t.homework,{});return;}
+    if(key===META_CLASS_TASKS_KEY){data.classTasks=parseMetaJSON(t.homework,{});return;}
+    if(key===META_LEADERBOARD_CONSENT_KEY){data.leaderboardConsents=parseMetaJSON(t.homework,{});return;}
+    data.dailyTasks[key]={homework:t.homework||'',dictation:t.dictation||'',recite:t.recite||'',speaking:t.speaking||''};
+  });
+  student.forEach(t=>{if(!data.studentTasks[t.username])data.studentTasks[t.username]={};data.studentTasks[t.username][t.task_date]={homework:t.homework||'',dictation:t.dictation||'',recite:t.recite||'',speaking:t.speaking||''};});
+  checkins.forEach(c=>{if(!data.checkins[c.username])data.checkins[c.username]={};data.checkins[c.username][c.checkin_date]={homework:!!c.homework,dictation:!!c.dictation,recite:!!c.recite,speaking:!!c.speaking};});
+  streaks.forEach(s=>{data.streaks[s.username]={streak:s.streak||0,flowers:s.flowers||0,lastCheckinDate:s.last_checkin_date||null,bravoReachedAt:s.updated_at||s.bravo_reached_at||null};});
+  chat.forEach(m=>{data.chatMessages.push({id:m.id,username:m.username,role:m.role,message:m.message,timestamp:m.created_at||m.timestamp});});
+  hidden.forEach(h=>{if(!data.hiddenChatMessages[h.username])data.hiddenChatMessages[h.username]=[];data.hiddenChatMessages[h.username].push(h.message_key);});
+  leaderboard.forEach(entry=>{data.leaderboard[entry.username]={flowers:entry.flowers||0,bravoReachedAt:entry.updated_at||entry.bravo_reached_at||null};});
+  return refreshAllStudentProgress(normalizeData(data));
+}
+
+function getInitialData(){return{users:{},dailyTasks:{},studentTasks:{},checkins:{},streaks:{},leaderboard:{},leaderboardConsents:{},chatMessages:[],hiddenChatMessages:{},classes:{},studentPrograms:{},classTasks:{}};}
+
+function parseMetaJSON(text,fallback){
+  try{const v=JSON.parse(text||'');return v&&typeof v==='object'?v:fallback;}catch(e){return fallback;}
+}
+
+function normalizeData(data){
+  if(!data||typeof data!=='object')data=getInitialData();
+  data.users=data.users||{};
+  data.dailyTasks=data.dailyTasks||{};
+  data.studentTasks=data.studentTasks||{};
+  data.checkins=data.checkins||{};
+  data.streaks=data.streaks||{};
+  data.leaderboard=data.leaderboard||{};
+  data.leaderboardConsents=data.leaderboardConsents||{};
+  data.chatMessages=data.chatMessages||[];
+  data.hiddenChatMessages=data.hiddenChatMessages||{};
+  data.deletedUsers=data.deletedUsers||[];
+  data.classes=data.classes||{};
+  data.studentPrograms=data.studentPrograms||{};
+  data.classTasks=data.classTasks||{};
+  if(!data.users['toni']&&data.users['Antonio']){data.users['toni']=data.users['Antonio'];delete data.users['Antonio'];}
+  const validStudents=new Set(Object.entries(data.users).filter(([,u])=>u.role==='student').map(([name])=>name));
+  Object.keys(data.studentPrograms).forEach(name=>{if(!validStudents.has(name))delete data.studentPrograms[name];});
+  Object.keys(data.leaderboard).forEach(name=>{if(!validStudents.has(name))delete data.leaderboard[name];});
+  Object.keys(data.leaderboardConsents).forEach(name=>{if(!validStudents.has(name))delete data.leaderboardConsents[name];});
+  validStudents.forEach(name=>{
+    const p=data.studentPrograms[name]||{};
+    data.studentPrograms[name]={italian:p.italian!==false,portfolio:!!p.portfolio};
+  });
+  Object.keys(data.classes).forEach(cls=>{
+    if(!Array.isArray(data.classes[cls]))data.classes[cls]=[];
+    data.classes[cls]=Array.from(new Set(data.classes[cls].filter(name=>validStudents.has(name))));
+  });
+  Object.keys(data.classTasks).forEach(cls=>{if(!data.classes[cls])delete data.classTasks[cls];});
+  return data;
+}
+
+function cloneData(data){return JSON.parse(JSON.stringify(normalizeData(data)));}
+
+async function saveData(msg){
+  const pending=cloneData(appData||getInitialData());
+  const run=saveLock.catch(()=>{}).then(()=>saveDataNow(msg,pending));
+  saveLock=run.catch(()=>{});
+  return run;
+}
+
+async function saveDataNow(msg,pending){
+  if(msg.startsWith('删除用户:'))await supabaseDeleteUser(msg.replace('删除用户:','').trim());
+  else if(msg.includes('checkin'))await supabaseSaveCheckinsAndStreaks(pending);
+  else if(msg.startsWith('编辑 '))await supabaseSaveTasks(pending);
+  else if(msg.startsWith('聊天:')||msg.startsWith('聊天(重试):'))await supabaseSaveChatMessages(pending);
+  else if(msg.startsWith('隐藏聊天:'))await supabaseSaveHiddenChatMessages(pending);
+  else if(msg.startsWith('注册学生:')||msg.startsWith('添加教师:')||msg.startsWith('修改密码:'))await supabaseSaveOneUser(pending,msg.split(':').slice(1).join(':').trim());
+  else if(msg.startsWith('班级:')||msg.startsWith('专业:'))await supabaseSaveTasks(pending);
+  else if(msg.startsWith('排行榜隐私:')){await supabaseSaveTasks(pending);await supabaseSyncLeaderboardEntries(pending);}
+  else if(msg.startsWith('同步本地注册:'))await supabaseSaveUsers(pending);
+  else await supabaseSaveAll(pending);
+  appData=pending;saveLocalData();
+}
+
+const LK='italiano_local_data';
+function loadLocalData(){const r=localStorage.getItem(LK);return r?normalizeData(JSON.parse(r)):getInitialData();}
+function saveLocalData(){localStorage.setItem(LK,JSON.stringify(appData));}
+function clearLegacyDefaultTaskCache(){
+  const version='blank-tasks-v1';
+  if(localStorage.getItem('italiano_task_cache_version')===version)return;
+  try{
+    const raw=localStorage.getItem(LK);
+    if(raw){
+      const data=JSON.parse(raw);
+      data.dailyTasks={};
+      data.studentTasks={};
+      localStorage.setItem(LK,JSON.stringify(data));
+    }
+  }catch(e){}
+  localStorage.setItem('italiano_task_cache_version',version);
+}
+function clearLegacyPendingUsers(){localStorage.removeItem(PENDING_USERS_KEY);}
+function removePendingUser(username){clearLegacyPendingUsers();}
+function sleep(ms){return new Promise(resolve=>setTimeout(resolve,ms));}
+function deletedUserKey(username){return DELETED_USER_PREFIX+encodeURIComponent(username);}
+function decodeDeletedUsername(key){return decodeURIComponent((key||'').slice(DELETED_USER_PREFIX.length));}
+function getDeletedUsers(data){
+  const deleted=new Set((data&&data.deletedUsers)||[]);
+  Object.keys((data&&data.dailyTasks)||{}).forEach(k=>{if(k.startsWith(DELETED_USER_PREFIX))deleted.add(decodeDeletedUsername(k));});
+  return deleted;
+}
+function supabaseHeaders(extra={}){
+  return Object.assign({'apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},extra);
+}
+async function supabaseRequest(path,options={}){
+  const url=SUPABASE_URL+'/rest/v1/'+path;
+  const method=(options.method||'GET').toUpperCase();
+  const retries=options.retries==null?(method==='GET'?SUPABASE_RETRIES:1):options.retries;
+  let lastErr=null;
+  for(let attempt=0;attempt<=retries;attempt++){
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),options.timeout||SUPABASE_TIMEOUT_MS);
+    try{
+      const r=await fetch(url,Object.assign({},options,{signal:controller.signal,headers:supabaseHeaders(options.headers||{})}));
+      clearTimeout(timer);
+      if(!r.ok)throw new Error('Supabase失败('+r.status+') '+await r.text());
+      if(r.status===204)return null;
+      const text=await r.text();
+      return text?JSON.parse(text):null;
+    }catch(e){
+      clearTimeout(timer);
+      lastErr=e;
+      if(attempt>=retries)break;
+      await sleep(500*(attempt+1));
+    }
+  }
+  throw lastErr||new Error('Supabase请求失败');
+}
+function taskRow(date,t){return{task_date:date,homework:t.homework||'',dictation:t.dictation||'',recite:t.recite||'',speaking:t.speaking||'',updated_at:new Date().toISOString()};}
+function studentTaskRow(username,date,t){return{username,task_date:date,homework:t.homework||'',dictation:t.dictation||'',recite:t.recite||'',speaking:t.speaking||'',updated_at:new Date().toISOString()};}
+function metaTaskRow(key,obj){return{task_date:key,homework:JSON.stringify(obj||{}),dictation:'meta',recite:'',speaking:'',updated_at:new Date().toISOString()};}
+async function supabaseUpsert(table,rows,onConflict){
+  if(!rows||rows.length===0)return;
+  await supabaseRequest(`${table}?on_conflict=${encodeURIComponent(onConflict)}`,{method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(rows)});
+}
+async function supabaseGetUser(username){
+  const rows=await supabaseRequest('app_users?select=*&username=eq.'+encodeURIComponent(username));
+  return rows&&rows[0]?rows[0]:null;
+}
+async function supabaseIsDeletedUser(username){
+  const rows=await supabaseRequest('daily_tasks?select=task_date&task_date=eq.'+encodeURIComponent(deletedUserKey(username)));
+  return !!(rows&&rows.length);
+}
+function keepAuthenticatedUser(row){
+  if(!appData)appData=loadLocalData();
+  appData=normalizeData(appData);
+  appData.users[row.username]={password:row.password,role:row.role};
+  saveLocalData();
+}
+async function loadDataForAuthenticatedUser(row){
+  try{
+    await fetchDataFromApi();
+    if(!appData.users[row.username]){
+      appData.users[row.username]={password:row.password,role:row.role};
+      saveLocalData();
+    }
+    updateSyncStatus(true);
+  }catch(e){
+    keepAuthenticatedUser(row);
+    updateSyncStatus(false);
+  }
+}
+async function supabaseCreateUser(username,password,role){
+  if(await supabaseIsDeletedUser(username))throw new Error('用户已删除');
+  const row={username,password,role,updated_at:new Date().toISOString()};
+  const saved=await supabaseRequest('app_users?on_conflict=username',{method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=representation'},body:JSON.stringify([row])});
+  if(!Array.isArray(saved)||saved.length===0)throw new Error('用户保存未生效');
+  const check=await supabaseGetUser(username);
+  if(!check||check.password!==password||check.role!==role)throw new Error('用户保存后复查失败');
+  return check;
+}
+async function supabaseCreateNewUser(username,password,role){
+  if(await supabaseIsDeletedUser(username))throw new Error('用户已删除');
+  if(await supabaseGetUser(username))throw new Error('用户已存在');
+  const row={username,password,role,updated_at:new Date().toISOString()};
+  const saved=await supabaseRequest('app_users',{method:'POST',headers:{'Prefer':'return=representation'},body:JSON.stringify([row])});
+  if(!Array.isArray(saved)||saved.length===0)throw new Error('用户保存未生效');
+  const check=await supabaseGetUser(username);
+  if(!check||check.password!==password||check.role!==role)throw new Error('用户保存后复查失败');
+  return check;
+}
+async function supabaseSaveOneUser(data,username){
+  const u=data.users&&data.users[username];
+  if(!username||!u)throw new Error('用户数据不存在');
+  if(getDeletedUsers(data).has(username))throw new Error('用户已删除');
+  await supabaseCreateUser(username,u.password,u.role);
+}
+async function supabaseSaveUsers(data){
+  const deleted=getDeletedUsers(data);
+  const rows=Object.entries(data.users).filter(([username])=>!deleted.has(username)).map(([username,u])=>({username,password:u.password,role:u.role,updated_at:new Date().toISOString()}));
+  await supabaseUpsert('app_users',rows,'username');
+}
+async function supabaseDeleteUser(username){
+  const name=encodeURIComponent(username);
+  await supabaseUpsert('daily_tasks',[{task_date:deletedUserKey(username),homework:new Date().toISOString(),dictation:'deleted-user',recite:'',speaking:'',updated_at:new Date().toISOString()}],'task_date');
+  await Promise.all([
+    supabaseRequest('hidden_chat_messages?username=eq.'+name,{method:'DELETE'}),
+    supabaseRequest('student_tasks?username=eq.'+name,{method:'DELETE'}),
+    supabaseRequest('checkins?username=eq.'+name,{method:'DELETE'}),
+    supabaseRequest('streaks?username=eq.'+name,{method:'DELETE'}),
+    supabaseRequest('leaderboard_entries?username=eq.'+name,{method:'DELETE'})
+  ]);
+  const deleted=await supabaseRequest('app_users?username=eq.'+name,{method:'DELETE',headers:{'Prefer':'return=representation'}});
+  const check=await supabaseRequest('app_users?select=username&username=eq.'+name);
+  if(check&&check.length>0)throw new Error('用户仍存在');
+}
+async function deleteAccountStrict(username){
+  if(username==='toni')throw new Error('不能删除主管理员');
+  await supabaseDeleteUser(username);
+  if(await supabaseGetUser(username))throw new Error('用户仍存在');
+  if(!await supabaseIsDeletedUser(username))throw new Error('删除记录未写入');
+}
+async function supabaseClearOldChat(){
+  const cutoff=encodeURIComponent(getTodayStartISO());
+  await supabaseRequest('chat_messages?created_at=lt.'+cutoff,{method:'DELETE'});
+  await supabaseRequest('hidden_chat_messages?hidden_at=lt.'+cutoff,{method:'DELETE'});
+}
+async function supabaseSaveTasks(data){
+  const dailyRows=Object.entries(data.dailyTasks||{}).map(([date,t])=>taskRow(date,t));
+  dailyRows.push(metaTaskRow(META_CLASSES_KEY,data.classes||{}));
+  dailyRows.push(metaTaskRow(META_PROGRAMS_KEY,data.studentPrograms||{}));
+  dailyRows.push(metaTaskRow(META_CLASS_TASKS_KEY,data.classTasks||{}));
+  dailyRows.push(metaTaskRow(META_LEADERBOARD_CONSENT_KEY,data.leaderboardConsents||{}));
+  const studentRows=[];
+  Object.entries(data.studentTasks||{}).forEach(([username,dates])=>Object.entries(dates||{}).forEach(([date,t])=>studentRows.push(studentTaskRow(username,date,t))));
+  await supabaseUpsert('daily_tasks',dailyRows,'task_date');
+  await supabaseUpsert('student_tasks',studentRows,'username,task_date');
+}
+async function supabaseSaveCheckinsAndStreaks(data){
+  const checkinRows=[];
+  Object.entries(data.checkins||{}).forEach(([username,dates])=>Object.entries(dates||{}).forEach(([date,c])=>checkinRows.push({username,checkin_date:date,homework:!!c.homework,dictation:!!c.dictation,recite:!!c.recite,speaking:!!c.speaking,updated_at:new Date().toISOString()})));
+  const streakRows=Object.entries(data.streaks||{}).map(([username,s])=>({username,streak:s.streak||0,flowers:s.flowers||0,last_checkin_date:s.lastCheckinDate||null,updated_at:s.bravoReachedAt||s.updatedAt||new Date().toISOString()}));
+  await supabaseUpsert('checkins',checkinRows,'username,checkin_date');
+  await supabaseUpsert('streaks',streakRows,'username');
+  await supabaseSyncLeaderboardEntries(data);
+}
+
+function getLeaderboardEntryRows(data){
+  return Object.entries(data.leaderboardConsents||{}).filter(([username,consented])=>consented&&data.users&&data.users[username]&&data.users[username].role==='student').map(([username])=>{
+    const streak=(data.streaks||{})[username]||{};
+    return {username,flowers:streak.flowers||0,updated_at:streak.bravoReachedAt||streak.updatedAt||new Date().toISOString()};
+  });
+}
+
+async function supabaseSyncLeaderboardEntries(data){
+  const rows=getLeaderboardEntryRows(data);
+  await supabaseUpsert('leaderboard_entries',rows,'username');
+}
+
+async function supabaseDeleteLeaderboardEntry(username){
+  await supabaseRequest('leaderboard_entries?username=eq.'+encodeURIComponent(username),{method:'DELETE'});
+}
+async function supabaseSaveChatMessages(data){
+  const rows=(data.chatMessages||[]).map(m=>({id:getChatMessageKey(m),username:m.username,role:m.role,message:m.message,created_at:m.timestamp||new Date().toISOString()}));
+  await supabaseUpsert('chat_messages',rows,'id');
+}
+async function supabaseSaveHiddenChatMessages(data){
+  const rows=[];
+  Object.entries(data.hiddenChatMessages||{}).forEach(([username,keys])=>(keys||[]).forEach(message_key=>rows.push({username,message_key})));
+  await supabaseUpsert('hidden_chat_messages',rows,'username,message_key');
+}
+async function supabaseSaveAll(data){
+  await supabaseSaveUsers(data);
+  await supabaseSaveTasks(data);
+  await supabaseSaveCheckinsAndStreaks(data);
+  await supabaseSaveChatMessages(data);
+  await supabaseSaveHiddenChatMessages(data);
+}
+
+function portfolioDate(date){return PORTFOLIO_PREFIX+date;}
+function taskStorageDate(date,program){return program==='portfolio'?portfolioDate(date):date;}
+function getTaskForStudent(student,date,cat,program){
+  const key=taskStorageDate(date,program||'italian');
+  const st=appData.studentTasks||{};
+  if(st[student]&&st[student][key]&&st[student][key][cat])return st[student][key][cat];
+  const cls=getStudentClass(student);
+  const ct=appData.classTasks||{};
+  if(cls&&ct[cls]&&ct[cls][key]&&ct[cls][key][cat])return ct[cls][key][cat];
+  const dt=appData.dailyTasks||{};
+  if(dt[key]&&dt[key][cat])return dt[key][cat];
+  return '';
+}
+function portfolioTextFromTask(t){
+  if(!t)return '';
+  if(t.homework)return t.homework;
+  return [t.dictation,t.recite,t.speaking].filter(Boolean).join('\n');
+}
+function getPortfolioTaskForStudent(student,date){
+  const key=taskStorageDate(date,'portfolio');
+  const st=appData.studentTasks||{};
+  if(st[student]&&st[student][key]){
+    const text=portfolioTextFromTask(st[student][key]);
+    if(text)return text;
+  }
+  const cls=getStudentClass(student);
+  const ct=appData.classTasks||{};
+  if(cls&&ct[cls]&&ct[cls][key]){
+    const text=portfolioTextFromTask(ct[cls][key]);
+    if(text)return text;
+  }
+  const dt=appData.dailyTasks||{};
+  return portfolioTextFromTask(dt[key]);
+}
+function getStudentPrograms(name){
+  normalizeData(appData);
+  return (appData.studentPrograms&&appData.studentPrograms[name])||{italian:true,portfolio:false};
+}
+function hasProgram(name,program){return !!getStudentPrograms(name)[program];}
+function getClassMembers(className){return ((appData.classes||{})[className]||[]).filter(name=>appData.users[name]&&appData.users[name].role==='student');}
+function getClassMembersByProgram(className,program){return getClassMembers(className).filter(name=>hasProgram(name,program));}
+function sortNamesByPinyin(names){return names.slice().sort((a,b)=>a.localeCompare(b,'zh-Hans-CN',{sensitivity:'base',numeric:true}));}
+function getStudentClass(name){
+  return Object.entries(appData.classes||{}).find(([,members])=>(members||[]).includes(name))?.[0]||'';
+}
+function getUnclassedStudents(){
+  return sortNamesByPinyin(Object.entries(appData.users).filter(([,v])=>v.role==='student').map(([n])=>n).filter(n=>!getStudentClass(n)));
+}
+function getTaskKeys(){return ['homework','dictation','recite'];}
+function getTaskConfigs(){return [
+  {key:'homework',icon:'📖',label:_('taskHomework'),name:_('taskHomework'),cls:'hw'},
+  {key:'dictation',icon:'🔤',label:_('taskDictation'),name:_('taskDictation'),cls:'dt'},
+  {key:'recite',icon:'✍️',label:_('taskRecite'),name:_('taskRecite'),cls:'rc'}
+];}
+function getEmptyCheckin(){return {homework:false,dictation:false,recite:false,speaking:false};}
+function getWeekDates(dateStr){
+  const base=new Date((dateStr||getToday())+'T00:00:00');
+  const day=base.getDay()||7;
+  const monday=new Date(base);monday.setDate(base.getDate()-day+1);
+  return Array.from({length:7},(_,i)=>{const d=new Date(monday);d.setDate(monday.getDate()+i);return d.toISOString().split('T')[0];});
+}
+function addDays(dateStr,days){
+  const d=new Date(dateStr+'T00:00:00');d.setDate(d.getDate()+days);return d.toISOString().split('T')[0];
+}
+function getCurrentWeekPastDates(){
+  const today=getToday();
+  return getWeekDates(today).filter(date=>date<=today);
+}
+function getTeacherCheckinDate(){
+  const dates=getCurrentWeekPastDates();
+  if(!dates.includes(teacherCheckinDate))teacherCheckinDate=getToday();
+  return teacherCheckinDate;
+}
+function getBravoWindowDates(){
+  const today=getToday(),start=addDays(today,-2);
+  return getCurrentWeekPastDates().filter(date=>date>=start&&date<=today);
+}
+function isBravoEligibleDate(date){
+  return getBravoWindowDates().includes(date);
+}
+function getStudentTasksForDate(student,date,program){
+  if(program==='portfolio'){
+    const content=getPortfolioTaskForStudent(student,date);
+    return content?[{key:'homework',icon:'🎨',cls:'sp',name:_('taskPortfolioContent'),content}]:[];
+  }
+  return getTaskConfigs().map(c=>Object.assign({},c,{content:getTaskForStudent(student,date,c.key,'italian')})).filter(t=>t.content);
+}
+function getStudentWeeklyTaskDates(student,program){
+  return getWeekDates(getToday()).map(date=>({date,tasks:getStudentTasksForDate(student,date,program)})).filter(day=>day.tasks.length>0);
+}
+
+function showLoading(m){document.getElementById('loadingText').textContent=m||_('loading');document.getElementById('loadingOverlay').style.display='flex';}
+function hideLoading(){document.getElementById('loadingOverlay').style.display='none';}
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';t.classList.remove('hide');clearTimeout(t._t);t._t=setTimeout(()=>{t.classList.add('hide');setTimeout(()=>t.style.display='none',300)},2000);}
+
+function showPage(id){document.body.classList.toggle('auth-page',id==='loginPage'||id==='registerPage');document.body.classList.toggle('app-page',id==='teacherPage'||id==='studentPage');document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+function setupKeyboardNavGuard(){
+  const editable='input:not([type="hidden"]), textarea';
+  document.addEventListener('focusin',e=>{
+    if(e.target&&e.target.matches&&e.target.matches(editable))document.body.classList.add('keyboard-open');
+  });
+  document.addEventListener('focusout',e=>{
+    if(e.target&&e.target.matches&&e.target.matches(editable))setTimeout(()=>document.body.classList.remove('keyboard-open'),120);
+  });
+}
+
+function showRegister(){showLogin();}
+function showLogin(){document.getElementById('loginError').textContent='';document.getElementById('loginUser').value='';document.getElementById('loginPass').value='';showPage('loginPage');}
+
+async function doLogin(){
+  const u=document.getElementById('loginUser').value.trim(), p=document.getElementById('loginPass').value;
+  const e=document.getElementById('loginError');e.textContent='';
+  if(!u||!p){e.textContent=_('errorFill');return;}
+  showLoading(_('loading'));
+  try{
+    // 认证只查单个账号，避免全量同步失败误判为“用户不存在”。
+    if(await supabaseIsDeletedUser(u)){e.textContent=_('errorNotFound');hideLoading();return;}
+    const user=await supabaseGetUser(u);
+    if(!user){e.textContent=_('errorNotFound');hideLoading();return;}
+    if(user.password!==p){e.textContent=_('errorWrongPass');hideLoading();return;}
+    removePendingUser(u);
+    currentUser={username:u,role:user.role};
+    await loadDataForAuthenticatedUser(user);
+    if(currentUser.role==='teacher')showTeacherPage();else showStudentPage();
+    hideLoading();
+  }catch(x){e.textContent=_('errorNetwork');hideLoading();}
+}
+
+async function doRegister(){
+  showLogin();
+}
+
+function doLogout(){
+  if(chatTimer){clearInterval(chatTimer);chatTimer=null;}
+  if(teacherRefreshTimer){clearInterval(teacherRefreshTimer);teacherRefreshTimer=null;}
+  currentUser=null;appData=null;
+  showPage('loginPage');document.getElementById('loginUser').value='';document.getElementById('loginPass').value='';document.getElementById('loginError').textContent='';
+}
+
+function toggleSubmenu(el,id){
+  el.classList.toggle('open');
+  document.getElementById(id).classList.toggle('show');
+  if(id&&currentTeacherTab==='students'){
+    if(el.classList.contains('open'))teacherOpenSubmenus.add(id);
+    else teacherOpenSubmenus.delete(id);
+  }
+}
+
+function changeOwnPassword(){
+  const oldP=document.getElementById('oldPassword').value;
+  const newP=document.getElementById('newPassword').value;
+  const newP2=document.getElementById('newPassword2').value;
+  if(!oldP||!newP){showToast(_('errorFill'));return;}
+  if(newP.length<4){showToast(_('errorPassShort'));return;}
+  if(newP!==newP2){showToast(_('errorPassMismatch'));return;}
+  if(appData.users[currentUser.username].password!==oldP){showToast(_('settingsPwdWrong'));return;}
+  const before=cloneData(appData);
+  appData.users[currentUser.username].password=newP;
+  showLoading(_('syncing'));
+  saveData('修改密码:'+currentUser.username).then(()=>{updateSyncStatus(true);showToast(_('settingsPwdChanged'));}).catch(()=>{
+    appData=before;saveLocalData();updateSyncStatus(false);showToast(_('syncFail'));
+  }).finally(hideLoading);
+  document.getElementById('oldPassword').value='';
+  document.getElementById('newPassword').value='';
+  document.getElementById('newPassword2').value='';
+}
+
+// ===== TEACHER =====
+function showTeacherPage(){
+  showPage('teacherPage');updateAllUIText();
+  document.getElementById('teacherNameTag').textContent=currentUser.username+'（'+_('settingsTeacher')+'）';
+  updateSyncStatus();switchTeacherTab('students');
+}
+
+function updateSyncStatus(ok){
+  const el=document.getElementById('syncStatus');
+  if(!el)return;
+  if(ok===true){el.textContent=_('syncOK')+' '+new Date().toLocaleTimeString();el.className='sync-status ok';}
+  else if(ok===false){el.textContent=_('syncFail');el.className='sync-status error';}
+  else{el.textContent=_('syncNoToken');el.className='sync-status';}
+}
+
+async function switchTeacherTab(tab){
+  currentTeacherTab=tab;
+  const viewEpoch=++teacherViewEpoch;
+  document.querySelectorAll('#teacherNav .nav-item').forEach(b=>b.classList.remove('active'));
+  const map={students:0,tasks:1,podium:2,chat:3,settings:4};
+  document.querySelectorAll('#teacherNav .nav-item')[map[tab]].classList.add('active');
+  const main=document.getElementById('teacherMain');
+  if(tab==='students'){
+    if(chatTimer){clearInterval(chatTimer);chatTimer=null;}
+    if(teacherRefreshTimer){clearInterval(teacherRefreshTimer);teacherRefreshTimer=null;}
+    main.innerHTML='<div class="empty-state"><div class="icon">⏳</div>'+_('loading')+'</div>';
+    try{await fetchDataFromApi();if(currentTeacherTab!==tab||teacherViewEpoch!==viewEpoch)return;updateSyncStatus(true);}catch(e){if(currentTeacherTab!==tab||teacherViewEpoch!==viewEpoch)return;updateSyncStatus(false);}
+    if(currentTeacherTab!==tab||teacherViewEpoch!==viewEpoch)return;
+    renderTeacherStudents(main);
+    teacherRefreshTimer=setInterval(async()=>{
+      if(currentTeacherTab!=='students')return;
+      if(classEditInProgress)return;
+      if(expandedStudentCheckin)return;
+      const pollEpoch=teacherViewEpoch;
+      try{await fetchDataFromApi();if(currentTeacherTab!=='students'||teacherViewEpoch!==pollEpoch)return;renderTeacherStudents(document.getElementById('teacherMain'));updateSyncStatus(true);}catch(e){if(currentTeacherTab==='students'&&teacherViewEpoch===pollEpoch)updateSyncStatus(false);}
+    },20000);
+  }
+  else if(tab==='tasks'){
+    if(chatTimer){clearInterval(chatTimer);chatTimer=null;}
+    if(teacherRefreshTimer){clearInterval(teacherRefreshTimer);teacherRefreshTimer=null;}
+    main.innerHTML='<div class="empty-state"><div class="icon">⏳</div>'+_('loading')+'</div>';
+    try{await fetchDataFromApi();if(currentTeacherTab!==tab||teacherViewEpoch!==viewEpoch)return;updateSyncStatus(true);}catch(e){if(currentTeacherTab!==tab||teacherViewEpoch!==viewEpoch)return;updateSyncStatus(false);}
+    if(currentTeacherTab!==tab||teacherViewEpoch!==viewEpoch)return;
+    renderTeacherTasks(main);
+  }
+  else if(tab==='podium'){if(chatTimer){clearInterval(chatTimer);chatTimer=null;}if(teacherRefreshTimer){clearInterval(teacherRefreshTimer);teacherRefreshTimer=null;}renderTeacherPodium(main);}
+  else if(tab==='chat'){if(teacherRefreshTimer){clearInterval(teacherRefreshTimer);teacherRefreshTimer=null;}renderChat(main);startChatPoll();}
+  else if(tab==='settings'){if(chatTimer){clearInterval(chatTimer);chatTimer=null;}if(teacherRefreshTimer){clearInterval(teacherRefreshTimer);teacherRefreshTimer=null;}renderTeacherSettings(main);}
+}
+
+function renderTeacherStudents(main){
+  appData=refreshAllStudentProgress(normalizeData(appData));
+  if(expandedStudentCheckin){
+    const cls=getStudentClass(expandedStudentCheckin);
+    teacherOpenSubmenus.add(cls?'class_'+encodeURIComponent(cls):'unclassedStudents');
+  }
+  const students=sortNamesByPinyin(Object.entries(appData.users).filter(([,v])=>v.role==='student').map(([name])=>name)).map(name=>[name,appData.users[name]]);
+  const checkinDate=getTeacherCheckinDate();
+  const checkinDates=getCurrentWeekPastDates();
+  const minCheckinDate=checkinDates[0]||getToday();
+  const maxCheckinDate=checkinDates[checkinDates.length-1]||getToday();
+  const classNames=Object.keys(appData.classes||{}).sort((a,b)=>a.localeCompare(b));
+  const classOptions=classNames.map(c=>`<option value="${c}">${c}</option>`).join('');
+  const studentOptions=students.map(([name])=>`<option value="${name}">${name}</option>`).join('');
+  const classTools=`<div class="class-tools">
+    <h4 style="font-size:14px;margin-bottom:10px">${_('classManage')}</h4>
+    <div class="row"><input type="text" id="newClassName" placeholder="${_('className')}"><button type="button" class="btn-sm primary" onclick="createClass()">${_('classCreate')}</button></div>
+    <div class="row"><select id="classStudentSelect"><option value="">${_('classChooseStudent')}</option>${studentOptions}</select><select id="classSelect"><option value="__none__">${_('classUnassigned')}</option>${classOptions}</select><button type="button" class="btn-sm primary" onclick="assignStudentToClass()">${_('classAddStudent')}</button></div>
+    <div class="hint">${_('taskDefaultHint')}</div>
+  </div>`;
+  const checkinTools=`<div class="class-tools">
+    <h4 style="font-size:14px;margin-bottom:10px">${_('checkinDate')}</h4>
+    <div class="row"><input type="date" id="teacherCheckinDate" value="${checkinDate}" min="${minCheckinDate}" max="${maxCheckinDate}" onchange="changeTeacherCheckinDate(this.value)"><button type="button" class="btn-sm outline" onclick="setTeacherCheckinToday()">${_('todayN')}</button></div>
+    <div class="hint">${_('checkinDateHint')}</div>
+  </div>`;
+  const renderStudentCard=name=>{
+    const ci=(appData.checkins[name]||{})[checkinDate]||{};
+    const st=appData.streaks[name]||{};
+    const dc=getTaskKeys().filter(k=>ci[k]).length;
+    const ad=dc===getTaskKeys().length;
+    const p=getStudentPrograms(name);
+    const tags=`<div class="student-program-tags">${p.italian?`<span class="program-tag">${_('programItalian')}</span>`:''}${p.portfolio?`<span class="program-tag">${_('programPortfolio')}</span>`:''}</div>`;
+    return`<div class="student-card" id="studentCard_${encodeURIComponent(name)}" onclick="showStudentCheckin('${name}')"><div class="s-top"><div class="s-name">👤 ${name} ${ad?'🌟':''}${tags}</div><span style="font-size:12px;color:#888;">${formatDate(checkinDate)} ${dc}/${getTaskKeys().length}</span></div><div class="s-stats"><span>🔥 <b>${st.streak||0}</b> ${_('streakDays')}</span><span>👏 <b>${st.flowers||0}</b> ${_('flowersUnit')}</span></div><div class="s-today">${getTaskKeys().map(k=>`<span class="s-dot ${ci[k]?'done':'pending'}" title="${k}"></span>`).join('')}</div></div>${expandedStudentCheckin===name?renderStudentCheckinDetail(name):''}`;
+  };
+  let listHTML='';
+  if(students.length===0){
+    listHTML='<div class="empty-state"><div class="icon">📭</div>'+_('noStudents')+'</div>';
+  }else{
+    listHTML=classNames.map(cls=>{
+      const members=sortNamesByPinyin(getClassMembers(cls));
+      const body=members.length?members.map(renderStudentCard).join(''):'<div class="empty-state" style="padding:12px">--</div>';
+      const id='class_'+encodeURIComponent(cls);
+      const open=teacherOpenSubmenus.has(id);
+      return`<div class="submenu-toggle ${open?'open':''}" onclick="toggleSubmenu(this,'${id}')"><span>🏫 ${cls} (${members.length})</span><span class="arrow">▶</span></div>
+      <div class="submenu-body ${open?'show':''}" id="${id}">
+        <div class="submenu-actions"><button type="button" class="btn-sm outline" onclick="event.stopPropagation();renameClass('${cls}')">${_('classRename')}</button><button type="button" class="btn-sm danger" onclick="event.stopPropagation();deleteClass('${cls}')">${_('classDelete')}</button></div>
+        ${body}
+      </div>`;
+    }).join('');
+    const unclassed=getUnclassedStudents();
+    const unclassedOpen=teacherOpenSubmenus.has('unclassedStudents');
+    listHTML+=`<div class="submenu-toggle ${unclassedOpen?'open':''}" onclick="toggleSubmenu(this,'unclassedStudents')"><span>👤 ${_('classUnassigned')} (${unclassed.length})</span><span class="arrow">▶</span></div><div class="submenu-body ${unclassedOpen?'show':''}" id="unclassedStudents">${unclassed.length?unclassed.map(renderStudentCard).join(''):'<div class="empty-state" style="padding:12px">--</div>'}</div>`;
+  }
+  main.innerHTML=`<div class="section-title">${_('studentListTitle')} <button class="btn-sm outline" style="float:right;padding:4px 10px;min-height:28px;font-size:11px" onclick="refreshTeacherStudents()">${_('chatRefresh')}</button></div>`+checkinTools+classTools+listHTML;
+}
+
+function changeTeacherCheckinDate(date){
+  const dates=getCurrentWeekPastDates();
+  if(!dates.includes(date)){showToast(_('checkinDateOutOfRange'));teacherCheckinDate=getToday();}
+  else teacherCheckinDate=date;
+  expandedStudentCheckin='';
+  renderTeacherStudents(document.getElementById('teacherMain'));
+}
+
+function setTeacherCheckinToday(){
+  teacherCheckinDate=getToday();
+  expandedStudentCheckin='';
+  renderTeacherStudents(document.getElementById('teacherMain'));
+}
+
+async function saveClassData(message){
+  normalizeData(appData);saveLocalData();
+  if(currentTeacherTab==='students')renderTeacherStudents(document.getElementById('teacherMain'));
+  classEditInProgress=true;
+  showLoading(_('syncing'));
+  try{await saveData('班级:'+message);updateSyncStatus(true);showToast(_('classUpdated'));}
+  catch(e){updateSyncStatus(false);showToast(_('syncFail'));}
+  classEditInProgress=false;
+  hideLoading();
+  if(currentTeacherTab==='students')renderTeacherStudents(document.getElementById('teacherMain'));
+}
+
+async function createClass(){
+  const input=document.getElementById('newClassName');
+  const name=(input&&input.value||'').trim();
+  if(!name){showToast(_('errorFill'));return;}
+  if(!appData.classes)appData.classes={};
+  if(!appData.classes[name])appData.classes[name]=[];
+  if(input)input.value='';
+  await saveClassData('create '+name);
+}
+
+async function assignStudentToClass(){
+  const student=(document.getElementById('classStudentSelect')||{}).value;
+  const cls=(document.getElementById('classSelect')||{}).value;
+  if(!student||!cls){showToast(_('errorFill'));return;}
+  Object.keys(appData.classes||{}).forEach(c=>{appData.classes[c]=(appData.classes[c]||[]).filter(n=>n!==student);});
+  if(cls==='__none__'){await saveClassData('unassign '+student);return;}
+  if(!appData.classes[cls])appData.classes[cls]=[];
+  if(!appData.classes[cls].includes(student))appData.classes[cls].push(student);
+  normalizeData(appData);
+  await saveClassData('assign '+student+' '+cls);
+}
+
+async function renameClass(oldName){
+  const name=prompt(_('className'),oldName);
+  if(!name||name.trim()===oldName)return;
+  const newName=name.trim();
+  if(!appData.classes)appData.classes={};
+  appData.classes[newName]=appData.classes[oldName]||[];
+  delete appData.classes[oldName];
+  if(appData.classTasks&&appData.classTasks[oldName]){appData.classTasks[newName]=appData.classTasks[oldName];delete appData.classTasks[oldName];}
+  await saveClassData('rename '+oldName+' '+newName);
+}
+
+async function deleteClass(name){
+  if(!confirm(_('classDelete')+' "'+name+'"?'))return;
+  if(appData.classes)delete appData.classes[name];
+  if(appData.classTasks)delete appData.classTasks[name];
+  await saveClassData('delete '+name);
+}
+
+async function refreshTeacherStudents(){
+  const viewEpoch=teacherViewEpoch;
+  showLoading(_('syncing'));
+  try{await fetchDataFromApi();if(currentTeacherTab==='students'&&teacherViewEpoch===viewEpoch){renderTeacherStudents(document.getElementById('teacherMain'));updateSyncStatus(true);}}
+  catch(e){if(currentTeacherTab==='students'&&teacherViewEpoch===viewEpoch){updateSyncStatus(false);showToast(_('syncFail'));}}
+  hideLoading();
+}
+
+function showStudentCheckin(name){
+  expandedStudentCheckin=expandedStudentCheckin===name?'':name;
+  renderTeacherStudents(document.getElementById('teacherMain'));
+  focusExpandedStudent();
+}
+
+function focusExpandedStudent(){
+  if(!expandedStudentCheckin)return;
+  setTimeout(()=>{
+    const el=document.getElementById('studentCard_'+encodeURIComponent(expandedStudentCheckin));
+    if(el)el.scrollIntoView({block:'nearest',behavior:'smooth'});
+  },0);
+}
+
+function renderStudentCheckinDetail(name){
+  const checkinDate=getTeacherCheckinDate();
+  if(!appData.checkins[name])appData.checkins[name]={};
+  if(!appData.checkins[name][checkinDate])appData.checkins[name][checkinDate]=getEmptyCheckin();
+  const ci=appData.checkins[name][checkinDate];
+  const cfgs=getTaskConfigs();
+  const dc=cfgs.filter(c=>ci[c.key]).length;
+  return `<div style="background:#fff;border-radius:16px;padding:18px;box-shadow:0 4px 16px rgba(0,0,0,.08);margin:-4px 0 12px 0">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <b style="font-size:16px">👤 ${name} · ${formatDate(checkinDate)} ${_('checkinDetail')}</b>
+      <span style="font-size:13px;color:#888">${dc}/${cfgs.length}</span>
+    </div>
+    ${cfgs.map(c=>`<div class="checkin-row">
+      <span class="ci-icon">${c.icon}</span><span class="ci-name">${c.label}</span>
+      <span class="ci-status">${ci[c.key]?'✅ '+_('checkinDone'):'⏳ '+_('checkinPending')}</span>
+      <button class="check-btn ${ci[c.key]?'done':''}" onclick="teacherToggleCheckin('${name}','${c.key}')">${ci[c.key]?'✅':'○'}</button>
+    </div>`).join('')}
+    <button class="btn-sm outline" style="margin-top:12px;width:100%" onclick="expandedStudentCheckin='';renderTeacherStudents(document.getElementById('teacherMain'))">${_('checkinCollapse')}</button>
+  </div>`;
+}
+
+async function teacherToggleCheckin(name,key){
+  const checkinDate=getTeacherCheckinDate();
+  if(!appData.checkins[name])appData.checkins[name]={};
+  if(!appData.checkins[name][checkinDate])appData.checkins[name][checkinDate]=getEmptyCheckin();
+  const ci=appData.checkins[name][checkinDate];
+  ci[key]=!ci[key];
+  const allDone=getTaskKeys().every(k=>ci[k]);
+  updateStudentProgress(name,true);
+  saveLocalData();
+  showLoading(_('syncing'));
+  try{await saveData(currentUser.username+' checkin '+name+' '+checkinDate+' '+key);updateSyncStatus(true);}catch(e){
+    updateSyncStatus(false);
+    const _m=currentUser.username+' checkin '+name+' '+checkinDate+' '+key;
+    setTimeout(async()=>{try{await saveData(_m+'(重试)');updateSyncStatus(true);}catch(e){}},5000);
+  }
+  hideLoading();
+  if(allDone){setTimeout(()=>spawnConfetti(),100);setTimeout(()=>showToast(_('allDone')),800);}
+  expandedStudentCheckin=name;
+  renderTeacherStudents(document.getElementById('teacherMain'));
+  focusExpandedStudent();
+}
+
+function refreshAllStudentProgress(data){
+  const previous=appData;
+  appData=data;
+  Object.entries(data.users||{}).filter(([,u])=>u.role==='student').forEach(([name])=>updateStudentProgress(name,false));
+  const refreshed=appData;
+  appData=previous;
+  return refreshed;
+}
+
+function getBravoCountForStudent(name){
+  const dates=appData.checkins[name]||{};
+  const eligible=new Set(getBravoWindowDates());
+  return Object.entries(dates).reduce((sum,[date,ci])=>{
+    if(!eligible.has(date))return sum;
+    return sum+getTaskKeys().filter(k=>ci&&ci[k]).length;
+  },0);
+}
+
+function getComputedBravoReachedAt(name,flowers){
+  if(!flowers)return '9999-12-31T23:59:59.999Z';
+  const eligible=new Set(getBravoWindowDates());
+  let total=0,reached='';
+  Object.entries((appData.checkins||{})[name]||{}).filter(([date])=>eligible.has(date)).sort(([a],[b])=>a.localeCompare(b)).some(([date,ci])=>{
+    total+=getTaskKeys().filter(k=>ci&&ci[k]).length;
+    if(total>=flowers){reached=date+'T23:59:59.999Z';return true;}
+    return false;
+  });
+  return reached||'9999-12-31T23:59:59.999Z';
+}
+
+function updateStudentProgress(name,showReward){
+  if(!appData.streaks[name])appData.streaks[name]={streak:0,flowers:0,lastCheckinDate:null};
+  const s=appData.streaks[name];
+  const oldFlowers=s.flowers||0;
+  const dates=appData.checkins[name]||{};
+  s.flowers=getBravoCountForStudent(name);
+  if(s.flowers>oldFlowers)s.bravoReachedAt=new Date().toISOString();
+  else if(s.flowers<oldFlowers)s.bravoReachedAt=getComputedBravoReachedAt(name,s.flowers);
+  const doneDates=Object.entries(dates).filter(([,ci])=>getTaskKeys().some(k=>ci&&ci[k])).map(([date])=>date).sort();
+  s.streak=0;s.lastCheckinDate=null;
+  if(doneDates.length){
+    let streak=1;
+    for(let i=doneDates.length-1;i>0;i--){
+      const d=new Date(doneDates[i]);d.setDate(d.getDate()-1);
+      if(d.toISOString().split('T')[0]===doneDates[i-1])streak++;else break;
+    }
+    s.streak=streak;
+    s.lastCheckinDate=doneDates[doneDates.length-1];
+  }
+  if(showReward&&s.flowers>oldFlowers)setTimeout(()=>showToast(_('flowerGot')),500);
+  saveLocalData();
+}
+
+// ===== TEACHER: Tasks =====
+function renderTeacherTasks(main){
+  const students=sortNamesByPinyin(Object.entries(appData.users).filter(([n,v])=>v.role==='student'&&hasProgram(n,teacherTaskProgram)).map(([n])=>n));
+  if(teacherTaskStudent.startsWith('student:')&&!students.includes(teacherTaskStudent.slice(8)))teacherTaskStudent='__default__';
+  const classNames=Object.keys(appData.classes||{}).filter(c=>getClassMembersByProgram(c,teacherTaskProgram).length>0).sort((a,b)=>a.localeCompare(b));
+  if(teacherTaskStudent.startsWith('class:')&&!classNames.includes(teacherTaskStudent.slice(6)))teacherTaskStudent='__default__';
+  const today=getToday();
+  const storageDate=taskStorageDate(today,teacherTaskProgram);
+  let tasks={};
+  if(teacherTaskStudent==='__default__'){tasks=appData.dailyTasks[storageDate]||{};}
+  else if(teacherTaskStudent.startsWith('class:')){
+    const cls=teacherTaskStudent.slice(6);
+    tasks=((appData.classTasks||{})[cls]||{})[storageDate]||{};
+  }else{const name=teacherTaskStudent.replace(/^student:/,'');tasks=((appData.studentTasks||{})[name]||{})[storageDate]||{};}
+  const portfolioText=portfolioTextFromTask(tasks);
+  const targetOptions=`<option value="__default__" ${teacherTaskStudent==='__default__'?'selected':''}>${_('taskDefaultOption')}</option>`+
+    classNames.map(c=>`<option value="class:${c}" ${teacherTaskStudent==='class:'+c?'selected':''}>${_('taskClassOption')}${c}</option>`).join('')+
+    students.map(s=>`<option value="student:${s}" ${teacherTaskStudent==='student:'+s||teacherTaskStudent===s?'selected':''}>👤 ${s}</option>`).join('');
+  const editorFields=teacherTaskProgram==='portfolio'
+    ? `<div class="cat-label">${_('taskPortfolioContent')}</div><textarea id="editPortfolio" placeholder="${_('taskPortfolioContent')}" style="min-height:220px">${portfolioText}</textarea>`
+    : `<div class="cat-label">${_('taskHomework')}</div><textarea id="editHomework" placeholder="${_('taskHomework')}">${tasks.homework||''}</textarea>
+    <div class="cat-label">${_('taskDictation')}</div><textarea id="editDictation" placeholder="${_('taskDictation')}">${tasks.dictation||''}</textarea>
+    <div class="cat-label">${_('taskRecite')}</div><textarea id="editRecite" placeholder="${_('taskRecite')}">${tasks.recite||''}</textarea>`;
+  main.innerHTML=`<div class="task-editor">
+    <div style="background:#fffbe6;border-radius:10px;padding:10px 12px;margin-bottom:14px;font-size:12px;color:#996;line-height:1.5">${_('taskDefaultHint')}</div>
+    <div class="program-switch"><button type="button" class="${teacherTaskProgram==='italian'?'active':''}" onclick="changeTaskProgram('italian')">${_('taskItalian')}</button><button type="button" class="${teacherTaskProgram==='portfolio'?'active':''}" onclick="changeTaskProgram('portfolio')">${_('taskPortfolio')}</button></div>
+    <div class="row"><select id="taskStudent" onchange="changeTaskStudent()">${targetOptions}</select></div>
+    <div class="row"><input type="date" id="taskDate" value="${today}" onchange="loadTaskForDate()"><button class="btn-sm primary" onclick="saveTeacherTasks()">${_('taskSave')}</button></div>
+    ${editorFields}
+    <button class="btn-sm primary" style="width:100%;padding:12px;font-size:15px;margin-top:8px" onclick="saveTeacherTasks()">${_('taskSave')}</button>
+  </div>`;
+}
+
+function changeTaskStudent(){teacherTaskStudent=document.getElementById('taskStudent').value;loadTaskForDate();}
+function changeTaskProgram(program){teacherTaskProgram=program;renderTeacherTasks(document.getElementById('teacherMain'));}
+function loadTaskForDate(){
+  const date=document.getElementById('taskDate').value;
+  const storageDate=taskStorageDate(date,teacherTaskProgram);
+  let tasks={};
+  if(teacherTaskStudent==='__default__'){tasks=appData.dailyTasks[storageDate]||{};}
+  else if(teacherTaskStudent.startsWith('class:')){
+    const cls=teacherTaskStudent.slice(6);
+    tasks=((appData.classTasks||{})[cls]||{})[storageDate]||{};
+  }else{const name=teacherTaskStudent.replace(/^student:/,'');tasks=((appData.studentTasks||{})[name]||{})[storageDate]||{};}
+  if(teacherTaskProgram==='portfolio'){
+    document.getElementById('editPortfolio').value=portfolioTextFromTask(tasks);
+    return;
+  }
+  document.getElementById('editHomework').value=tasks.homework||'';
+  document.getElementById('editDictation').value=tasks.dictation||'';
+  document.getElementById('editRecite').value=tasks.recite||'';
+}
+
+async function saveTeacherTasks(){
+  const date=document.getElementById('taskDate').value;
+  const storageDate=taskStorageDate(date,teacherTaskProgram);
+  const tasks=teacherTaskProgram==='portfolio'
+    ? {homework:document.getElementById('editPortfolio').value.trim(),dictation:'',recite:'',speaking:''}
+    : {homework:document.getElementById('editHomework').value.trim(),dictation:document.getElementById('editDictation').value.trim(),recite:document.getElementById('editRecite').value.trim(),speaking:''};
+  if(teacherTaskStudent==='__default__'){if(!appData.dailyTasks[storageDate])appData.dailyTasks[storageDate]={};Object.assign(appData.dailyTasks[storageDate],tasks);}
+  else if(teacherTaskStudent.startsWith('class:')){
+    const cls=teacherTaskStudent.slice(6);
+    if(!appData.classTasks)appData.classTasks={};
+    if(!appData.classTasks[cls])appData.classTasks[cls]={};
+    if(!appData.classTasks[cls][storageDate])appData.classTasks[cls][storageDate]={};
+    Object.assign(appData.classTasks[cls][storageDate],tasks);
+  }else{
+    const name=teacherTaskStudent.replace(/^student:/,'');
+    if(!appData.studentTasks)appData.studentTasks={};if(!appData.studentTasks[name])appData.studentTasks[name]={};if(!appData.studentTasks[name][storageDate])appData.studentTasks[name][storageDate]={};Object.assign(appData.studentTasks[name][storageDate],tasks);
+  }
+  saveLocalData();
+  const label=teacherTaskStudent==='__default__'?_('taskDefaultOption'):teacherTaskStudent;
+  showLoading(_('syncing'));
+  try{await saveData('编辑 '+date+' '+label+' 作业');updateSyncStatus(true);}catch(e){updateSyncStatus(false);setTimeout(async()=>{try{await saveData('编辑 '+date+' '+label+' 作业(重试)');updateSyncStatus(true);}catch(e){}},5000);}
+  hideLoading();
+  showToast('✅ '+_('taskSaved'));
+}
+
+// ===== TEACHER: Podium =====
+function renderTeacherPodium(main){
+  main.innerHTML=`<div class="section-title">${_('podiumTitle')} <button type="button" class="btn-sm outline" style="margin-left:auto;padding:4px 10px;min-height:28px;font-size:11px" onclick="refreshPodium()">${_('chatRefresh')}</button></div>`+renderPodiumHTML();
+}
+
+// ===== TEACHER: Settings =====
+function renderTeacherSettings(main){
+  const users=Object.entries(appData.users);
+  const teacherUsers=users.filter(([,info])=>info.role==='teacher').sort(([a],[b])=>a.localeCompare(b));
+  const studentUsers=users.filter(([,info])=>info.role==='student').sort(([a],[b])=>a.localeCompare(b));
+  const renderUserRows=list=>list.length?list.map(([name,info])=>{
+    if(info.role==='student'){
+      const p=getStudentPrograms(name);
+      return`<div class="submenu-toggle" onclick="toggleSubmenu(this,'studentSet_${encodeURIComponent(name)}')"><span><b>${name}</b> <span class="role-tag student">${_('settingsStudent')}</span></span><span class="arrow">▶</span></div>
+      <div class="submenu-body" id="studentSet_${encodeURIComponent(name)}">
+        <div class="settings-card"><h4>${_('programTitle')}</h4>
+          <div class="program-switch" id="programSwitch_${encodeURIComponent(name)}">${renderStudentProgramButtons(name)}</div>
+          <button type="button" class="btn-sm primary" onclick="saveStudentProgram('${name}')">${_('taskSave')}</button>
+          <button type="button" class="btn-sm danger" onclick="deleteUser('${name}')">${_('settingsDelete')}</button>
+        </div>
+      </div>`;
+    }
+    return`<div class="user-list-item"><div><b>${name}</b> <span class="role-tag ${info.role}">${_('settingsTeacher')}</span></div>${name!=='toni'?`<button type="button" class="btn-sm danger" onclick="deleteUser('${name}')">${_('settingsDelete')}</button>`:'<span style="font-size:11px;color:#999">'+_('settingsMainAdmin')+'</span>'}</div>`;
+  }).join(''):`<div class="empty-state" style="padding:16px">--</div>`;
+  let ts=`<div class="settings-card"><h4>${_('settingsToken')}</h4><div style="display:flex;align-items:center;gap:10px"><span style="color:#009246;font-weight:600;">${_('settingsTokenOk')}</span><button class="btn-sm outline" onclick="refreshCloudData()">${_('settingsTokenChange')}</button></div><div class="hint">${_('settingsTokenHint')}</div></div>`;
+  const canAddTeacher=currentUser&&currentUser.username==='toni';
+  const addAccountCard=`<div class="settings-card"><h4>${canAddTeacher?_('settingsAddTeacher'):_('settingsAddStudent')}</h4>${canAddTeacher?`<select id="newAccountRole" style="margin-bottom:10px"><option value="student">${_('settingsStudent')}</option><option value="teacher">${_('settingsTeacher')}</option></select>`:`<input type="hidden" id="newAccountRole" value="student">`}<div class="program-switch" id="newProgramSwitch">${renderNewAccountProgramButtons()}</div><div class="row"><input type="text" id="newAccountUser" placeholder="${_('settingsTeacherUser')}" style="flex:1" autocapitalize="none"><input type="password" id="newAccountPass" placeholder="${_('settingsTeacherPass')}" style="flex:1"><button type="button" class="btn-sm primary" onclick="addAccount()">${_('settingsAdd')}</button></div></div>`;
+
+  main.innerHTML=ts+`
+    <div class="settings-card"><h4>${_('settingsLanguage')}</h4>
+      <select id="langSelect" onchange="setLang(this.value)">
+        <option value="zh-CN" ${lang==='zh-CN'?'selected':''}>🇨🇳 简体中文</option>
+        <option value="en" ${lang==='en'?'selected':''}>🇬🇧 English</option>
+        <option value="it" ${lang==='it'?'selected':''}>🇮🇹 Italiano</option>
+      </select>
+    </div>
+    <div class="submenu-toggle" onclick="toggleSubmenu(this,'accountSub')"><span>${_('settingsAccount')}</span><span class="arrow">▶</span></div>
+    <div class="submenu-body" id="accountSub">
+      <div class="settings-card"><h4>${_('settingsChangePassword')}</h4>
+        <input type="password" id="oldPassword" placeholder="${_('settingsOldPassword')}">
+        <input type="password" id="newPassword" placeholder="${_('settingsNewPassword')}">
+        <input type="password" id="newPassword2" placeholder="${_('settingsNewPassword2')}">
+        <button class="btn-sm primary" style="width:100%" onclick="changeOwnPassword()">${_('settingsChangePwdBtn')}</button>
+      </div>
+      ${addAccountCard}
+      <div class="settings-card"><h4>${_('settingsResetStudentPassword')}</h4><input type="text" id="resetStudentUser" placeholder="${_('settingsTeacherUser')}" autocapitalize="none"><button type="button" class="btn-sm primary" style="width:100%" onclick="resetStudentPassword()">${_('settingsResetStudentBtn')}</button><div class="hint">${_('settingsResetStudentHint')}</div></div>
+      <div class="settings-card"><h4>${_('settingsUsers')}</h4>
+        <div class="submenu-toggle" onclick="toggleSubmenu(this,'teacherUsersSub')"><span>👨‍🏫 ${_('settingsTeacher')} (${teacherUsers.length})</span><span class="arrow">▶</span></div>
+        <div class="submenu-body" id="teacherUsersSub" style="margin-bottom:8px">${renderUserRows(teacherUsers)}</div>
+        <div class="submenu-toggle" onclick="toggleSubmenu(this,'studentUsersSub')"><span>🎓 ${_('settingsStudent')} (${studentUsers.length})</span><span class="arrow">▶</span></div>
+        <div class="submenu-body" id="studentUsersSub">${renderUserRows(studentUsers)}</div>
+      </div>
+      ${renderChatSafetyCard()}
+    </div>
+    <button class="logout-danger" onclick="doLogout()">${_('settingsLogout')}</button>
+    <div class="footer">${_('footer')}</div>
+  `;
+  updateSyncStatus();
+}
+
+async function saveToken(){
+  return refreshCloudData();
+}
+
+async function refreshCloudData(){
+  const viewEpoch=teacherViewEpoch;
+  showLoading(_('syncing'));
+  try{await fetchDataFromApi();if(currentTeacherTab==='settings'&&teacherViewEpoch===viewEpoch){updateSyncStatus(true);showToast(_('syncOK'));renderTeacherSettings(document.getElementById('teacherMain'));}}
+  catch(e){if(currentTeacherTab==='settings'&&teacherViewEpoch===viewEpoch){updateSyncStatus(false);showToast(_('syncFail'));}}
+  hideLoading();
+}
+
+function clearToken(){refreshCloudData();}
+
+function renderNewAccountProgramButtons(){
+  return `<button type="button" class="${newAccountPrograms.italian?'active':''}" onclick="toggleNewAccountProgram('italian');return false;">${_('programItalian')}</button><button type="button" class="${newAccountPrograms.portfolio?'active':''}" onclick="toggleNewAccountProgram('portfolio');return false;">${_('programPortfolio')}</button>`;
+}
+
+function toggleNewAccountProgram(program){
+  newAccountPrograms[program]=!newAccountPrograms[program];
+  if(!newAccountPrograms.italian&&!newAccountPrograms.portfolio)newAccountPrograms[program]=true;
+  const el=document.getElementById('newProgramSwitch');
+  if(el)el.innerHTML=renderNewAccountProgramButtons();
+}
+
+async function addAccount(){
+  const viewEpoch=teacherViewEpoch;
+  const u=document.getElementById('newAccountUser').value.trim(),p=document.getElementById('newAccountPass').value;
+  let role=(document.getElementById('newAccountRole')||{}).value||'student';
+  if(currentUser.username!=='toni')role='student';
+  if(role!=='teacher')role='student';
+  if(!u||!p){showToast(_('errorFill'));return;}
+  if(p.length<4){showToast(_('errorPassShort'));return;}
+  if(appData.users[u]){showToast(_('errorUserExists'));return;}
+  const before=cloneData(appData);
+  appData.users[u]={password:p,role};
+  if(role==='student'){
+    const italian=!!newAccountPrograms.italian;
+    const portfolio=!!newAccountPrograms.portfolio;
+    appData.studentPrograms[u]={italian:italian||!portfolio,portfolio};
+  }
+  showLoading(_('syncing'));
+  try{await supabaseCreateNewUser(u,p,role);await supabaseSaveTasks(appData);saveLocalData();updateSyncStatus(true);}
+  catch(e){appData=before;saveLocalData();updateSyncStatus(false);hideLoading();showToast(e&&e.message==='用户已删除'?_('errorDeletedUser'):e&&e.message==='用户已存在'?_('errorUserExists'):_('syncFail'));if(currentTeacherTab==='settings'&&teacherViewEpoch===viewEpoch)renderTeacherSettings(document.getElementById('teacherMain'));return;}
+  hideLoading();
+  newAccountPrograms={italian:true,portfolio:false};
+  showToast(_('teacherAdded'));if(currentTeacherTab==='settings'&&teacherViewEpoch===viewEpoch)renderTeacherSettings(document.getElementById('teacherMain'));
+}
+
+function renderStudentProgramButtons(name){
+  const p=getStudentPrograms(name);
+  return `<button type="button" class="${p.italian?'active':''}" onclick="toggleStudentProgram('${name}','italian');return false;">${_('programItalian')}</button><button type="button" class="${p.portfolio?'active':''}" onclick="toggleStudentProgram('${name}','portfolio');return false;">${_('programPortfolio')}</button>`;
+}
+
+function toggleStudentProgram(name,program){
+  if(!appData.studentPrograms)appData.studentPrograms={};
+  const p=getStudentPrograms(name);
+  p[program]=!p[program];
+  if(!p.italian&&!p.portfolio)p[program]=true;
+  appData.studentPrograms[name]=p;
+  const el=document.getElementById('programSwitch_'+encodeURIComponent(name));
+  if(el)el.innerHTML=renderStudentProgramButtons(name);
+}
+
+async function saveStudentProgram(name){
+  const p=getStudentPrograms(name);
+  const it=!!p.italian;
+  const pf=!!p.portfolio;
+  if(!it&&!pf){showToast(_('errorFill'));return;}
+  if(!appData.studentPrograms)appData.studentPrograms={};
+  appData.studentPrograms[name]={italian:it,portfolio:pf};
+  saveLocalData();showLoading(_('syncing'));
+  try{await saveData('专业:'+name);updateSyncStatus(true);showToast(_('programSaved'));}
+  catch(e){updateSyncStatus(false);showToast(_('syncFail'));}
+  hideLoading();
+  if(currentTeacherTab==='settings')renderTeacherSettings(document.getElementById('teacherMain'));
+}
+
+async function resetStudentPassword(){
+  const input=document.getElementById('resetStudentUser');
+  const username=(input&&input.value||'').trim();
+  if(!username){showToast(_('errorFill'));return;}
+  showLoading(_('syncing'));
+  try{
+    const user=await supabaseGetUser(username);
+    if(!user||user.role!=='student'){hideLoading();showToast(_('errorNotFound'));return;}
+    await supabaseCreateUser(username,'123456','student');
+    if(!appData.users[username])appData.users[username]={role:'student',password:'123456'};
+    else appData.users[username].password='123456';
+    saveLocalData();
+    updateSyncStatus(true);
+    if(input)input.value='';
+    showToast(_('settingsStudentPwdReset'));
+  }catch(e){
+    updateSyncStatus(false);
+    showToast(_('syncFail'));
+  }
+  hideLoading();
+}
+
+async function deleteUser(name){
+  const viewEpoch=teacherViewEpoch;
+  if(!confirm(_('confirmDeleteUser')+' "'+name+'"？'+_('confirmDeleteUserMsg')))return;
+  const before=cloneData(appData);
+  delete appData.users[name];delete appData.checkins[name];delete appData.streaks[name];
+  if(appData.studentTasks)delete appData.studentTasks[name];
+  if(appData.studentPrograms)delete appData.studentPrograms[name];
+  Object.keys(appData.classes||{}).forEach(cls=>{appData.classes[cls]=(appData.classes[cls]||[]).filter(n=>n!==name);});
+  showLoading(_('syncing'));
+  try{await deleteAccountStrict(name);await supabaseSaveTasks(appData);saveLocalData();updateSyncStatus(true);}
+  catch(e){appData=before;saveLocalData();updateSyncStatus(false);hideLoading();showToast(_('syncFail'));if(currentTeacherTab==='settings'&&teacherViewEpoch===viewEpoch)renderTeacherSettings(document.getElementById('teacherMain'));return;}
+  hideLoading();
+  showToast(_('userDeleted'));if(currentTeacherTab==='settings'&&teacherViewEpoch===viewEpoch)renderTeacherSettings(document.getElementById('teacherMain'));
+}
+
+// ===== STUDENT =====
+function showStudentPage(){
+  showPage('studentPage');updateAllUIText();
+  document.getElementById('studentNameTag').textContent=currentUser.username;
+  switchStudentTab('tasks');
+  if(!Object.prototype.hasOwnProperty.call(appData.leaderboardConsents||{},currentUser.username))setTimeout(showLeaderboardConsent,120);
+}
+
+function hasLeaderboardConsent(username){
+  return !!((appData.leaderboardConsents||{})[username]);
+}
+
+function showLeaderboardConsent(){
+  if(!currentUser||currentUser.role!=='student'||Object.prototype.hasOwnProperty.call(appData.leaderboardConsents||{},currentUser.username))return;
+  const main=document.getElementById('studentMain');
+  main.innerHTML=`<div class="settings-card" style="margin-top:20px"><h4>${_('leaderboardConsentTitle')}</h4><div class="hint" style="font-size:13px;color:#555;line-height:1.7">${_('leaderboardConsentBody')}</div><button type="button" class="btn-sm primary" style="width:100%;margin-top:16px" onclick="setLeaderboardConsent(true)">${_('leaderboardConsentAgree')}</button><button type="button" class="btn-sm outline" style="width:100%;margin-top:10px" onclick="setLeaderboardConsent(false)">${_('leaderboardConsentDecline')}</button></div>`;
+}
+
+async function setLeaderboardConsent(consented){
+  if(!currentUser||currentUser.role!=='student')return;
+  appData.leaderboardConsents=appData.leaderboardConsents||{};
+  appData.leaderboardConsents[currentUser.username]=!!consented;
+  if(!consented)delete appData.leaderboard[currentUser.username];
+  showLoading(_('syncing'));
+  try{
+    if(!consented)await supabaseDeleteLeaderboardEntry(currentUser.username);
+    await saveData('排行榜隐私:'+currentUser.username);
+    if(consented)await fetchDataFromApi();
+    updateSyncStatus(true);
+    showToast(consented?('✅ '+_('leaderboardConsentAgree')):_('leaderboardLeft'));
+  }catch(e){
+    updateSyncStatus(false);
+    showToast(_('syncFail'));
+  }finally{
+    hideLoading();
+    if(currentStudentTab==='podium')renderStudentPodium(document.getElementById('studentMain'));
+    else if(currentStudentTab==='settings')renderStudentSettings(document.getElementById('studentMain'));
+    else renderStudentTasks(document.getElementById('studentMain'));
+  }
+}
+
+function switchStudentTab(tab){
+  currentStudentTab=tab;
+  studentViewEpoch++;
+  if(tab!=='chat'&&chatTimer){clearInterval(chatTimer);chatTimer=null;}
+  document.querySelectorAll('#studentNav .nav-item').forEach(b=>b.classList.remove('active'));
+  const map={tasks:0,podium:1,chat:2,settings:3};
+  document.querySelectorAll('#studentNav .nav-item')[map[tab]].classList.add('active');
+  const main=document.getElementById('studentMain');
+  if(tab==='tasks')renderStudentTasks(main);
+  else if(tab==='podium'){if(chatTimer){clearInterval(chatTimer);chatTimer=null;}renderStudentPodium(main);}
+  else if(tab==='chat'){renderChat(main);startChatPoll();}
+  else if(tab==='settings'){if(chatTimer){clearInterval(chatTimer);chatTimer=null;}renderStudentSettings(main);}
+}
+
+function renderStudentTasks(main){
+  const programs=getStudentPrograms(currentUser.username);
+  if(!programs[studentTaskProgram])studentTaskProgram=programs.portfolio&&!programs.italian?'portfolio':'italian';
+  const both=programs.italian&&programs.portfolio;
+  const week=getStudentWeeklyTaskDates(currentUser.username,studentTaskProgram);
+  const renderDay=({date,tasks})=>{
+    const ci=((appData.checkins||{})[currentUser.username]||{})[date]||{};
+    const doneCount=tasks.filter(t=>ci[t.key]).length;
+    const id='studentTaskDay_'+date.replace(/-/g,'');
+    return `<div class="submenu-toggle" onclick="toggleSubmenu(this,'${id}')"><span>${formatDate(date)} (${doneCount}/${tasks.length})</span><span class="arrow">▶</span></div>
+    <div class="submenu-body" id="${id}">
+      ${tasks.map(t=>`<div class="task-card"><div class="task-icon ${t.cls}">${t.icon}</div><div class="task-info"><div class="task-name">${t.name}</div><div class="task-content" ${studentTaskProgram==='italian'?'lang="it"':''}>${t.content}</div></div><span class="ci-status">${ci[t.key]?'✅ '+_('checkinDone'):'⏳ '+_('checkinPending')}</span></div>`).join('')}
+    </div>`;
+  };
+  let html=`<div class="section-title">${_('studentWeeklyTasks')} <button type="button" class="btn-sm outline" style="margin-left:auto;padding:4px 10px;min-height:28px;font-size:11px" onclick="refreshStudentTasks()">${_('refreshTasks')}</button></div>`;
+  if(both)html+=`<div class="program-switch"><button type="button" class="${studentTaskProgram==='italian'?'active':''}" onclick="changeStudentTaskProgram('italian');return false;">${_('taskItalian')}</button><button type="button" class="${studentTaskProgram==='portfolio'?'active':''}" onclick="changeStudentTaskProgram('portfolio');return false;">${_('taskPortfolio')}</button></div>`;
+  html+=week.length?week.map(renderDay).join(''):`<div class="empty-state"><div class="icon">📭</div>${_('studentNoWeeklyTasks')}</div>`;
+  main.innerHTML=html+`<div style="text-align:center;color:#bbb;font-size:12px;margin-top:12px">${_('taskReadonlyHint')}</div><div class="footer">${_('footer')}</div>`;
+}
+
+function changeStudentTaskProgram(program){
+  studentTaskProgram=program;
+  renderStudentTasks(document.getElementById('studentMain'));
+}
+
+async function refreshStudentTasks(){
+  const viewEpoch=studentViewEpoch;
+  showLoading(_('syncing'));
+  try{
+    await fetchDataFromApi();
+    if(currentStudentTab==='tasks'&&studentViewEpoch===viewEpoch){
+      renderStudentTasks(document.getElementById('studentMain'));
+      updateSyncStatus(true);
+    }
+  }catch(e){
+    if(currentStudentTab==='tasks'&&studentViewEpoch===viewEpoch){
+      updateSyncStatus(false);
+      showToast(_('syncFail'));
+    }
+  }
+  hideLoading();
+}
+
+function renderStudentPodium(main){
+  main.innerHTML=`<div class="section-title">${_('podiumTitle')} <button type="button" class="btn-sm outline" style="margin-left:auto;padding:4px 10px;min-height:28px;font-size:11px" onclick="refreshPodium()">${_('chatRefresh')}</button></div>`+renderPodiumHTML();
+  const s=appData.streaks[currentUser.username]||{streak:0,flowers:0};
+  main.innerHTML+=`<div class="stats-row" style="margin-top:16px"><div class="stat-card"><div class="icon">🔥</div><div class="number" style="color:#ce2b37">${s.streak||0}</div><div class="label">${_('podiumMyStreak')}</div></div><div class="stat-card flower"><div class="icon">👏</div><div class="number">${s.flowers||0}</div><div class="label">${_('podiumMyFlowers')}</div></div></div>`;
+}
+
+async function refreshPodium(){
+  showLoading(_('syncing'));
+  try{
+    await fetchDataFromApi();
+    updateSyncStatus(true);
+    if(currentUser&&currentUser.role==='teacher'&&currentTeacherTab==='podium')renderTeacherPodium(document.getElementById('teacherMain'));
+    if(currentUser&&currentUser.role==='student'&&currentStudentTab==='podium')renderStudentPodium(document.getElementById('studentMain'));
+  }catch(e){
+    updateSyncStatus(false);
+    showToast(_('syncFail'));
+  }
+  hideLoading();
+}
+
+function renderStudentSettings(main){
+  const joined=hasLeaderboardConsent(currentUser.username);
+  main.innerHTML=`<div class="settings-card"><h4>${_('settingsLanguage')}</h4>
+    <select id="langSelect" onchange="setLang(this.value)">
+      <option value="zh-CN" ${lang==='zh-CN'?'selected':''}>🇨🇳 简体中文</option>
+      <option value="en" ${lang==='en'?'selected':''}>🇬🇧 English</option>
+      <option value="it" ${lang==='it'?'selected':''}>🇮🇹 Italiano</option>
+    </select></div>
+    <div class="settings-card"><h4>${_('leaderboardPrivacyTitle')}</h4><div class="hint">${joined?_('leaderboardPrivacyJoined'):_('leaderboardPrivacyNotJoined')}</div><button type="button" class="btn-sm ${joined?'danger':'primary'}" style="width:100%;margin-top:12px" onclick="setLeaderboardConsent(${joined?'false':'true'})">${joined?_('leaderboardLeave'):_('leaderboardJoin')}</button></div>
+    <div class="submenu-toggle" onclick="toggleSubmenu(this,'studentAccountSub')"><span>${_('settingsAccount')}</span><span class="arrow">▶</span></div>
+    <div class="submenu-body" id="studentAccountSub">
+      <div class="settings-card"><h4>${_('settingsChangePassword')}</h4>
+        <input type="password" id="oldPassword" placeholder="${_('settingsOldPassword')}">
+        <input type="password" id="newPassword" placeholder="${_('settingsNewPassword')}">
+        <input type="password" id="newPassword2" placeholder="${_('settingsNewPassword2')}">
+        <button class="btn-sm primary" style="width:100%" onclick="changeOwnPassword()">${_('settingsChangePwdBtn')}</button>
+      </div>
+      <div class="settings-card"><h4>${_('settingsMyAccount')}</h4><div class="user-list-item"><div><b>${currentUser.username}</b> <span class="role-tag student">${_('settingsStudent')}</span></div></div><div class="hint">${_('settingsContactTeacher')}</div></div>
+      ${renderChatSafetyCard()}
+    </div>
+    <button class="logout-danger" onclick="doLogout()">${_('settingsLogout')}</button>
+    <div class="footer">${_('footer')}</div>`;
+}
+
+// ===== SHARED: Podium =====
+function getBravoReachedAt(name,flowers){
+  const s=(appData.streaks||{})[name]||{};
+  if(s.bravoReachedAt||s.updatedAt)return s.bravoReachedAt||s.updatedAt;
+  if(!flowers)return '9999-12-31T23:59:59.999Z';
+  let total=0,reached='';
+  Object.entries((appData.checkins||{})[name]||{}).sort(([a],[b])=>a.localeCompare(b)).some(([date,ci])=>{
+    total+=getTaskKeys().filter(k=>ci&&ci[k]).length;
+    if(total>=flowers){reached=date+'T23:59:59.999Z';return true;}
+    return false;
+  });
+  return reached||s.lastCheckinDate&&s.lastCheckinDate+'T23:59:59.999Z'||'9999-12-31T23:59:59.999Z';
+}
+
+function comparePodiumStudents(a,b){
+  if(b.flowers!==a.flowers)return b.flowers-a.flowers;
+  const ta=getBravoReachedAt(a.name,a.flowers),tb=getBravoReachedAt(b.name,b.flowers);
+  if(ta!==tb)return ta.localeCompare(tb);
+  return a.name.localeCompare(b.name,'zh-Hans-CN',{sensitivity:'base',numeric:true});
+}
+
+function renderPodiumHTML(){
+  appData=refreshAllStudentProgress(normalizeData(appData));
+  const ranked=Object.entries(appData.leaderboard||{}).filter(([name])=>hasLeaderboardConsent(name)&&appData.users[name]&&appData.users[name].role==='student').map(([name,entry])=>({name,flowers:entry.flowers||0})).sort(comparePodiumStudents);
+  const pos=['first','second','third'],medals=['🥇','🥈','🥉'];
+  const cols=[];
+  for(let i=0;i<3;i++){
+    if(i<ranked.length&&ranked[i].flowers>0){cols.push(`<div class="podium-col ${pos[i]}"><div class="p-name">${medals[i]} ${ranked[i].name}</div><div class="p-flower">👏×${ranked[i].flowers}</div><div class="p-bar">${i+1}</div></div>`);}
+    else{cols.push(`<div class="podium-col ${pos[i]} empty"><div class="p-name">${medals[i]} ${_('podiumEmpty')}</div><div class="p-flower">--</div><div class="p-bar">${i+1}</div></div>`);}
+  }
+  return `<div class="podium-wrap"><h3>${_('podiumTitle')}</h3><div class="podium">${cols[1]}${cols[0]}${cols[2]}</div><div style="text-align:center;margin-top:8px;font-size:11px;color:#888">${_('podiumHint')}</div></div>`;
+}
+
+// ===== SHARED: Chat =====
+function renderChat(main){
+  main.innerHTML=`<div class="chat-area"><div class="chat-refresh"><button type="button" onclick="refreshChat();return false;">${_('chatRefresh')}</button></div><div class="chat-messages" id="chatMessages"><div class="empty-state" style="padding:20px"><div class="icon">💬</div>${_('chatEmpty')}</div></div><div class="chat-input-row"><input type="text" id="chatInput" placeholder="${_('chatPlaceholder')}" maxlength="500" onkeydown="if(event.key==='Enter')sendChat()"><button type="button" onclick="sendChat()">➤</button></div></div><div class="chat-compliance">${_('chatGroupHint')}<br>${_('chatCompliance')}</div>`;
+  renderChatMessages();
+}
+
+function renderChatMessages(){
+  const el=document.getElementById('chatMessages');if(!el)return;
+  const msgs=appData.chatMessages||[];
+  const hidden=getHiddenChatSet();
+  const blocked=getBlockedChatUsers();
+  const visible=msgs.map((m,idx)=>({m,idx})).filter(x=>!hidden.has(getChatMessageKey(x.m))&&!blocked.has(x.m.username)).slice(-100);
+  if(visible.length===0){el.innerHTML='<div class="empty-state" style="padding:20px"><div class="icon">💬</div>'+_('chatEmpty')+'</div>';return;}
+  el.innerHTML=visible.map(({m,idx})=>{
+    const isMine=m.username===currentUser.username;
+    const ts=formatChatTimestamp(m.timestamp);
+    const roleLabel=m.role==='teacher'?_('settingsTeacher'):_('settingsStudent');
+    return`<div class="chat-msg ${isMine?'mine':''}"><div class="cm-header"><span class="cm-name">${escapeHtml(m.username)}</span><span class="cm-role ${m.role}">${roleLabel}</span><span class="cm-time">${ts}</span></div><div class="cm-body" onpointerdown="startChatLongPress(event,${idx})" onpointerup="cancelChatLongPress()" onpointerleave="cancelChatLongPress()" onpointercancel="cancelChatLongPress()" onpointermove="cancelChatLongPress()" oncontextmenu="event.preventDefault();deleteChatMessage(${idx})">${escapeHtml(m.message)}</div><div class="cm-actions"><button type="button" class="cm-action" onclick="deleteChatMessage(${idx})">${_('chatHide')}</button><button type="button" class="cm-action warn" onclick="reportChatMessage(${idx})">${_('chatReport')}</button>${!isMine?`<button type="button" class="cm-action" onclick="blockChatUser(decodeURIComponent('${encodeURIComponent(m.username||'')}'))">${_('chatBlock')}</button>`:''}</div></div>`;
+  }).join('');
+  el.scrollTop=el.scrollHeight;
+}
+
+function escapeHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function getChatMessageKey(m){
+  return m.id||[m.timestamp||'',m.username||'',m.role||'',m.message||''].join('|');
+}
+
+function getHiddenChatSet(){
+  const u=currentUser&&currentUser.username;
+  const hidden=(appData.hiddenChatMessages&&u&&appData.hiddenChatMessages[u])||[];
+  return new Set(hidden);
+}
+
+function getBlockedChatUsers(){
+  try{return new Set(JSON.parse(localStorage.getItem(CHAT_BLOCKED_USERS_KEY)||'[]'));}
+  catch(e){return new Set();}
+}
+
+function saveBlockedChatUsers(set){
+  localStorage.setItem(CHAT_BLOCKED_USERS_KEY,JSON.stringify(Array.from(set).filter(Boolean)));
+}
+
+function isChatContentAllowed(msg){
+  const lower=String(msg||'').toLowerCase();
+  return !CHAT_BLOCKED_TERMS.some(term=>lower.includes(term.toLowerCase()));
+}
+
+function blockChatUser(username){
+  if(!username||username===(currentUser&&currentUser.username))return;
+  if(!confirm(_('confirmBlockChatUser')))return;
+  const blocked=getBlockedChatUsers();
+  blocked.add(username);
+  saveBlockedChatUsers(blocked);
+  renderChatMessages();
+  showToast(_('chatBlocked'));
+}
+
+function unblockChatUser(username){
+  const blocked=getBlockedChatUsers();
+  blocked.delete(username);
+  saveBlockedChatUsers(blocked);
+  showToast(_('chatUnblocked'));
+  const teacherMain=document.getElementById('teacherMain'), studentMain=document.getElementById('studentMain');
+  if(currentUser&&currentUser.role==='teacher'&&currentTeacherTab==='settings'&&teacherMain)renderTeacherSettings(teacherMain);
+  if(currentUser&&currentUser.role==='student'&&currentStudentTab==='settings'&&studentMain)renderStudentSettings(studentMain);
+}
+
+function renderChatSafetyCard(){
+  const blocked=Array.from(getBlockedChatUsers());
+  const rows=blocked.length?blocked.map(name=>`<div class="user-list-item"><div><b>${escapeHtml(name)}</b></div><button type="button" class="btn-sm outline" onclick="unblockChatUser(decodeURIComponent('${encodeURIComponent(name)}'))">${_('chatUnblock')}</button></div>`).join(''):`<div class="empty-state" style="padding:12px">${_('chatNoBlockedUsers')}</div>`;
+  return `<div class="settings-card"><h4>${_('chatBlockedUsers')}</h4>${rows}<div class="hint">${_('chatCompliance')}</div></div>`;
+}
+
+function reportChatMessage(idx){
+  if(!appData.chatMessages||!appData.chatMessages[idx])return;
+  const m=appData.chatMessages[idx];
+  const subject=encodeURIComponent('A1作业打卡聊天举报');
+  const body=encodeURIComponent([
+    '请处理以下课堂聊天内容：',
+    '',
+    '举报人：'+((currentUser&&currentUser.username)||''),
+    '发送人：'+(m.username||''),
+    '角色：'+(m.role||''),
+    '时间：'+(m.timestamp||''),
+    '消息ID：'+getChatMessageKey(m),
+    '',
+    '消息内容：',
+    m.message||''
+  ].join('\n'));
+  window.location.href=`mailto:${SUPPORT_EMAIL}?subject=${subject}&body=${body}`;
+  showToast(_('chatReported'));
+}
+
+function formatChatTimestamp(ts){
+  const d=new Date(ts);
+  if(isNaN(d))return '';
+  const hh=String(d.getHours()).padStart(2,'0'), mm=String(d.getMinutes()).padStart(2,'0');
+  const m=d.getMonth(), day=d.getDate();
+  if(lang==='en'){
+    const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return `${months[m]} ${day} ${hh}:${mm}`;
+  }
+  if(lang==='it'){
+    const months=['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
+    return `${day} ${months[m]} ${hh}:${mm}`;
+  }
+  return `${m+1}月${day}日 ${hh}:${mm}`;
+}
+
+function startChatLongPress(event,idx){
+  cancelChatLongPress();
+  chatLongPressTimer=setTimeout(()=>{chatLongPressTimer=null;deleteChatMessage(idx);},650);
+}
+
+function cancelChatLongPress(){
+  if(chatLongPressTimer){clearTimeout(chatLongPressTimer);chatLongPressTimer=null;}
+}
+
+async function deleteChatMessage(idx){
+  cancelChatLongPress();
+  if(!appData.chatMessages||!appData.chatMessages[idx])return;
+  if(!confirm(_('confirmDeleteChat')))return;
+  const before=cloneData(appData);
+  const key=getChatMessageKey(appData.chatMessages[idx]);
+  if(!appData.hiddenChatMessages)appData.hiddenChatMessages={};
+  const u=currentUser.username;
+  if(!appData.hiddenChatMessages[u])appData.hiddenChatMessages[u]=[];
+  if(!appData.hiddenChatMessages[u].includes(key))appData.hiddenChatMessages[u].push(key);
+  saveLocalData();renderChatMessages();showLoading(_('syncing'));
+  try{await saveData('隐藏聊天:'+currentUser.username);updateSyncStatus(true);showToast(_('chatDeleted'));}
+  catch(e){appData=before;saveLocalData();renderChatMessages();updateSyncStatus(false);showToast(_('syncFail'));}
+  hideLoading();
+}
+
+async function sendChat(){
+  const input=document.getElementById('chatInput');const msg=input.value.trim();if(!msg)return;input.value='';
+  if(!isChatContentAllowed(msg)){showToast(_('chatBlockedContent'));input.value=msg;return;}
+  if(!appData.chatMessages)appData.chatMessages=[];
+  appData.chatMessages.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,8),username:currentUser.username,role:currentUser.role,message:msg,timestamp:new Date().toISOString()});
+  if(appData.chatMessages.length>CHAT_MAX)appData.chatMessages=appData.chatMessages.slice(-CHAT_MAX);
+  saveLocalData();renderChatMessages();
+  try{await saveData('聊天:'+currentUser.username);}catch(e){setTimeout(async()=>{try{await saveData('聊天(重试):'+currentUser.username);}catch(e){}},5000);}
+}
+
+async function refreshChat(){
+  showLoading(_('syncing'));
+  try{await fetchDataFromApi();if(!appData.chatMessages)appData.chatMessages=[];updateSyncStatus(true);}
+  catch(e){try{await fetchData();if(!appData.chatMessages)appData.chatMessages=[];updateSyncStatus(true);}catch(e2){updateSyncStatus(false);showToast(_('syncFail'));}}
+  hideLoading();
+  renderChatMessages();
+}
+
+function startChatPoll(){
+  if(chatTimer)clearInterval(chatTimer);
+  chatTimer=setInterval(async()=>{try{await fetchData();if(!appData.chatMessages)appData.chatMessages=[];renderChatMessages();updateSyncStatus(true);}catch(e){}},10000);
+}
+
+// ===== UTILS =====
+function getToday(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function getTodayStartISO(){const d=new Date();d.setHours(0,0,0,0);return d.toISOString();}
+function formatDate(ds){
+  const d=new Date(ds+'T00:00:00');
+  const dayNames={'zh-CN':['日','一','二','三','四','五','六'],'en':['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],'it':['Dom','Lun','Mar','Mer','Gio','Ven','Sab']};
+  const months={'zh-CN':(m)=>m+'月','en':(m)=>['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m-1],'it':(m)=>['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'][m-1]};
+  const fmt=lang==='en'?`${months.en(d.getMonth()+1)} ${d.getDate()}, ${dayNames.en[d.getDay()]}`:lang==='it'?`${d.getDate()} ${months.it(d.getMonth()+1)}, ${dayNames.it[d.getDay()]}`:`${d.getMonth()+1}月${d.getDate()}日 周${dayNames['zh-CN'][d.getDay()]}`;
+  return fmt;
+}
+
+function spawnConfetti(){const c=document.getElementById('confettiContainer');const em=['🎉','🌟','✨','🇮🇹','🍕','🎊','💚','🤍','❤️','👏','⭐','🎈'];for(let i=0;i<30;i++){const p=document.createElement('span');p.className='confetti-piece';p.textContent=em[Math.floor(Math.random()*em.length)];p.style.left=Math.random()*100+'%';p.style.animationDuration=(Math.random()*2+2)+'s';p.style.animationDelay=Math.random()*.5+'s';c.appendChild(p);setTimeout(()=>p.remove(),3500);}}
+
+// ===== PWA =====
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault();deferredPrompt=e;document.querySelectorAll('.install-banner').forEach(b=>b.classList.add('show'));});
+function installPWA(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(r=>{if(r.outcome==='accepted'){document.querySelectorAll('.install-banner').forEach(b=>b.classList.remove('show'));}deferredPrompt=null;});}else{showToast('📲 请使用浏览器的"添加到主屏幕"功能');}}
+window.addEventListener('appinstalled',()=>{deferredPrompt=null;document.querySelectorAll('.install-banner').forEach(b=>b.classList.remove('show'));});
+async function resetAppCaches(){
+  try{if('caches' in window){const keys=await caches.keys();await Promise.all(keys.map(k=>caches.delete(k)));}}catch(e){}
+  try{localStorage.setItem('italiano_app_version',APP_VERSION);}catch(e){}
+}
+if('serviceWorker' in navigator){
+  resetAppCaches().then(()=>navigator.serviceWorker.register('/italiano-checkin/sw.js?v=21')).then(reg=>reg.update()).catch(()=>{});
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Enter'){if(document.getElementById('loginPage').classList.contains('active'))doLogin();}});
+
+// ===== INIT =====
+clearLegacyPendingUsers();
+clearLegacyDefaultTaskCache();
+setupKeyboardNavGuard();
+if(location.protocol.startsWith('http')&&new URLSearchParams(location.search).get('v')!==APP_VERSION.slice(1)){
+  location.replace(location.pathname+'?v='+APP_VERSION.slice(1));
+}
+updateAllUIText();
+showPage('loginPage');
+</script>
+</body>
+</html>
