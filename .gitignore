@@ -1,0 +1,53 @@
+node_modules/
+dist/
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+secrets/
+credentials/
+*.pem
+*.key
+*.p8
+*.p12
+*.cer
+*.crt
+*.mobileprovision
+*.provisionprofile
+AuthKey_*.p8
+GoogleService-Info.plist
+service-account*.json
+.DS_Store
+*.log
+# Generated mobile builds and debugging data
+frontend/android/
+frontend/build-ios/
+frontend/build-ios-ipad/
+frontend/build-appstore-screenshots/
+DerivedData/
+*.xcarchive/
+*.dSYM/
+xcuserdata/
+build-output/*
+!build-output/app-store-privacy/
+build-output/app-store-privacy/*
+!build-output/app-store-privacy/App.ipa
+# Local Supabase state and database exports
+supabase/.temp/
+supabase/.branches/
+supabase/backups/
+supabase/dump/
+backups/
+*.dump
+*.sqlite
+*.sqlite3
+*.db
+# Legacy migration shell; the final shipped app lives in frontend/
+/src/
+/public/
+/legacy-pwa/
+/index.html
+/sw.js
+/capacitor.config.ts
+/tsconfig.json
+/vite.config.ts
